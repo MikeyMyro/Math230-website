@@ -1,0 +1,179 @@
+---
+title: "Infographic"
+author:
+  - name: Mikey Myro
+date: "2026-05-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+library(tidyverse)
+library(ggplot2)
+library(ggrepel)
+library(patchwork)
+library(scales)
+```
+
+## What Makes a Fastball Effective?
+
+Velocity matters, but it is not everything.
+
+This infographic looks at the hardest throwing four-seam fastball pitchers in 2021. The main point is that there is no single perfect fastball. Some pitchers win with velocity, some win with spin, some win with movement, and others win with extension, release point, or deception.
+
+```{r load-data}
+files <- list.files("archive 2", full.names = TRUE)
+mydata <- map_dfr(files, read_csv)
+```
+
+```{r clean-data}
+df <- mydata[mydata$game_year == 2021, ]
+df <- df[df$pitch_type == "FF", ]
+
+df <- df[!is.na(df$player_name) &
+         !is.na(df$p_throws) &
+         !is.na(df$release_speed) &
+         !is.na(df$release_spin_rate) &
+         !is.na(df$release_extension) &
+         !is.na(df$pfx_x) &
+         !is.na(df$pfx_z) &
+         !is.na(df$release_pos_x) &
+         !is.na(df$release_pos_z) &
+         !is.na(df$description) &
+         !is.na(df$type), ]
+
+df$whiff <- ifelse(df$description %in%
+                     c("swinging_strike", "swinging_strike_blocked"), 1, 0)
+
+df$swing <- ifelse(df$description %in%
+                     c("swinging_strike", "swinging_strike_blocked",
+                       "foul", "foul_tip", "hit_into_play"), 1, 0)
+
+df$strike <- ifelse(df$type %in% c("S", "X"), 1, 0)
+```
+
+```{r create-summary}
+basic_summary <- aggregate(
+  cbind(release_speed, release_spin_rate, release_extension,
+        pfx_x, pfx_z, release_pos_x, release_pos_z, strike) ~ player_name + p_throws,
+  data = df,
+  FUN = mean,
+  na.rm = TRUE
+)
+
+counts <- aggregate(
+  release_speed ~ player_name + p_throws,
+  data = df,
+  FUN = length
+)
+
+names(counts)[3] <- "n"
+
+woba_summary <- aggregate(
+  woba_value ~ player_name + p_throws,
+  data = df[!is.na(df$woba_value), ],
+  FUN = mean,
+  na.rm = TRUE
+)
+
+whiff_summary <- aggregate(
+  whiff ~ player_name + p_throws,
+  data = df[df$swing == 1, ],
+  FUN = mean,
+  na.rm = TRUE
+)
+
+pitch_summary <- Reduce(function(x, y) merge(x, y, by = c("player_name", "p_throws")),
+                        list(basic_summary, counts, woba_summary, whiff_summary))
+
+pitch_summary <- pitch_summary[pitch_summary$n >= 400, ]
+
+righties <- pitch_summary[pitch_summary$p_throws == "R", ]
+lefties <- pitch_summary[pitch_summary$p_throws == "L", ]
+
+topR <- righties[order(-righties$release_speed), ][1:5, ]
+topL <- lefties[order(-lefties$release_speed), ][1:5, ]
+
+topR$group <- "Righty"
+topL$group <- "Lefty"
+
+top_pitchers <- rbind(topR, topL)
+top_pitchers$label <- top_pitchers$player_name
+```
+
+## The Fastball Is More Than Velocity
+
+```{r infographic, fig.width=14, fig.height=10}
+my_colors <- c("Righty" = "#1F77B4", "Lefty" = "#D62728")
+
+p1 <- ggplot(top_pitchers,
+             aes(y = reorder(player_name, release_speed),
+                 x = release_speed,
+                 fill = group)) +
+  geom_col(width = 0.7) +
+  scale_fill_manual(values = my_colors) +
+  labs(title = "1. Velocity Matters",
+       subtitle = "Harder fastballs give hitters less time to react.",
+       x = "Average Velocity",
+       y = "",
+       fill = "Pitcher Hand") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+p2 <- ggplot(top_pitchers,
+             aes(x = release_speed,
+                 y = release_spin_rate,
+                 color = group)) +
+  geom_point(size = 4) +
+  geom_text_repel(aes(label = player_name), size = 3, max.overlaps = Inf) +
+  scale_color_manual(values = my_colors) +
+  labs(title = "2. Spin Changes the Shape",
+       subtitle = "Fastballs with similar velocity can behave differently.",
+       x = "Average Velocity",
+       y = "Average Spin Rate",
+       color = "Pitcher Hand") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+p3 <- ggplot(top_pitchers,
+             aes(x = pfx_x,
+                 y = pfx_z,
+                 color = group)) +
+  geom_point(size = 4) +
+  geom_text_repel(aes(label = player_name), size = 3, max.overlaps = Inf) +
+  scale_color_manual(values = my_colors) +
+  labs(title = "3. Movement Profiles Differ",
+       subtitle = "Horizontal and vertical movement change how hitters see the pitch.",
+       x = "Horizontal Movement",
+       y = "Vertical Movement",
+       color = "Pitcher Hand") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+p4 <- ggplot(top_pitchers,
+             aes(x = reorder(player_name, whiff),
+                 y = whiff,
+                 fill = group)) +
+  geom_col(width = 0.7) +
+  coord_flip() +
+  scale_fill_manual(values = my_colors) +
+  scale_y_continuous(labels = percent) +
+  labs(title = "4. Whiffs Show Effectiveness",
+       subtitle = "The best fastballs miss bats, not just radar guns.",
+       x = "",
+       y = "Whiff Percentage",
+       fill = "Pitcher Hand") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+(p1 | p2) / (p3 | p4)
+```
+
+## Main Takeaway
+
+There is no single perfect fastball.
+
+The hardest thrower is not automatically the best in every category. Jacob deGrom shows how elite velocity can be dominant, but other pitchers show that fastballs can also be effective through spin, movement, extension, release point, command, and deception.
+
+A great fastball is not just the fastest pitch. It is the pitch that combines its traits in a way that makes hitters uncomfortable.

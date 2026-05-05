@@ -1,0 +1,5 @@
+archive 2/
+docs/archive 2/
+*.csv
+.RData
+.Rproj.user/

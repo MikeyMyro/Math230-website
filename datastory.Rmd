@@ -1,0 +1,424 @@
+---
+title: "Baseball Data Story"
+description: |
+  Do harder-throwing pitchers actually have better fastballs?
+author:
+  - name: Mikey Myro
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+library(tidyverse)
+library(knitr)
+library(ggrepel)
+library(fmsb)
+```
+
+# Baseball Data Story
+
+This project looks at the hardest throwing four-seam fastball pitchers in 2021. I compare the five hardest throwing right-handed pitchers and the five hardest throwing left-handed pitchers, only including pitchers who threw at least 400 four-seam fastballs.
+
+The main question is not just who throws the hardest, but how different fastballs can be effective in different ways. Velocity clearly matters because it gives hitters less time to react, but it is only one part of the story. Fastballs can succeed through velocity, spin, movement, extension, release position, command, deception, or some combination of all of them.
+
+This project shows that there is no single perfect fastball. Some pitchers win with pure velocity. Others win with extension, a unique release point, swing-and-miss ability, or the way their fastball fits with the rest of their arsenal. By looking at several different variables, this story shows how different hard fastballs are built.
+
+## Load Data
+
+```{r}
+files <- list.files("archive 2", full.names = TRUE)
+mydata <- map_dfr(files, read_csv)
+```
+
+## Clean Data
+
+```{r}
+df <- mydata[mydata$game_year == 2021, ]
+df <- df[df$pitch_type == "FF", ]
+
+df <- df[!is.na(df$player_name) &
+         !is.na(df$p_throws) &
+         !is.na(df$release_speed) &
+         !is.na(df$release_spin_rate) &
+         !is.na(df$release_extension) &
+         !is.na(df$pfx_x) &
+         !is.na(df$pfx_z) &
+         !is.na(df$release_pos_x) &
+         !is.na(df$release_pos_z) &
+         !is.na(df$description) &
+         !is.na(df$type), ]
+
+df$whiff <- ifelse(df$description %in%
+                     c("swinging_strike", "swinging_strike_blocked"), 1, 0)
+
+df$swing <- ifelse(df$description %in%
+                     c("swinging_strike", "swinging_strike_blocked",
+                       "foul", "foul_tip", "hit_into_play"), 1, 0)
+
+df$strike <- ifelse(df$type %in% c("S", "X"), 1, 0)
+```
+
+## Create Pitcher Summary
+
+```{r}
+basic_summary <- aggregate(
+  cbind(release_speed, release_spin_rate, release_extension,
+        pfx_x, pfx_z, release_pos_x, release_pos_z, strike) ~ player_name + p_throws,
+  data = df,
+  FUN = mean,
+  na.rm = TRUE
+)
+
+counts <- aggregate(
+  release_speed ~ player_name + p_throws,
+  data = df,
+  FUN = length
+)
+
+names(counts)[3] <- "n"
+
+woba_summary <- aggregate(
+  woba_value ~ player_name + p_throws,
+  data = df[!is.na(df$woba_value), ],
+  FUN = mean,
+  na.rm = TRUE
+)
+
+whiff_summary <- aggregate(
+  whiff ~ player_name + p_throws,
+  data = df[df$swing == 1, ],
+  FUN = mean,
+  na.rm = TRUE
+)
+
+pitch_summary <- Reduce(function(x, y) merge(x, y, by = c("player_name", "p_throws")),
+                        list(basic_summary, counts, woba_summary, whiff_summary))
+
+pitch_summary <- pitch_summary[pitch_summary$n >= 400, ]
+
+righties <- pitch_summary[pitch_summary$p_throws == "R", ]
+lefties <- pitch_summary[pitch_summary$p_throws == "L", ]
+
+topR <- righties[order(-righties$release_speed), ][1:5, ]
+topL <- lefties[order(-lefties$release_speed), ][1:5, ]
+
+topR$group <- "Righty"
+topL$group <- "Lefty"
+
+top_pitchers <- rbind(topR, topL)
+top_pitchers$label <- top_pitchers$player_name
+```
+
+# Hardest Throwers Table
+
+
+
+```{r}
+table_show <- top_pitchers[, c("player_name", "group", "n",
+                               "release_speed", "release_spin_rate",
+                               "release_extension", "strike",
+                               "woba_value", "whiff")]
+
+table_show$release_speed <- round(table_show$release_speed, 1)
+table_show$release_spin_rate <- round(table_show$release_spin_rate, 0)
+table_show$release_extension <- round(table_show$release_extension, 1)
+table_show$strike <- paste0(round(table_show$strike * 100, 1), "%")
+table_show$woba_value <- round(table_show$woba_value, 3)
+table_show$whiff <- paste0(round(table_show$whiff * 100, 1), "%")
+
+names(table_show) <- c("Pitcher", "Hand", "FF Count", "Velo",
+                       "Spin", "Ext", "Strike %", "wOBA", "Whiff %")
+
+kable(table_show,
+      caption = "Top 5 hardest righties and lefties with at least 400 four-seam fastballs")
+```
+
+This table introduces the ten hardest four-seam fastball throwers in this project. The group includes elite starters, elite relievers, and some pitchers who were not as successful overall. That mix is important because it shows that throwing hard does not automatically make a pitcher dominant.
+
+Jacob deGrom is the biggest example. He had a historic 2021 season with a 1.08 ERA and 14.3 strikeouts per nine innings, but his fastball was not the best in this group by every metric. At the same time, pitchers like Génesis Cabrera and Jake Brentz had better fastball wOBA results despite not being close to deGrom as overall pitchers. This shows that fastball success and overall pitcher success are connected, but they are not the exact same thing.
+
+# Velocity
+
+
+```{r fig.width=9, fig.height=7}
+ggplot(top_pitchers,
+       aes(y = reorder(player_name, release_speed),
+           x = release_speed,
+           fill = group)) +
+  geom_col(width = 0.6) +
+  
+  # add labels ON the bars instead of axis
+  geom_text(aes(label = player_name),
+            hjust = -0.1,
+            size = 3) +
+  
+  coord_cartesian(xlim = c(min(top_pitchers$release_speed) - 0.5,
+                           max(top_pitchers$release_speed) + 1)) +
+  
+  labs(title = "Hardest Throwing Four-Seam Fastball Pitchers",
+       subtitle = "Names shown directly on bars for clarity",
+       x = "Average Velocity",
+       y = "",
+       fill = "Pitcher Hand") +
+  
+  theme_minimal() +
+  theme(axis.text.y = element_blank(),   # removes crowded axis names
+        plot.title = element_text(face = "bold"))
+
+```
+
+Velocity is the most obvious part of a fastball. The faster the pitch is, the less time the hitter has to recognize it, decide whether to swing, and get the barrel to the ball.
+
+Jacob deGrom stands out as the hardest thrower in this group, which is especially impressive because he was a starting pitcher. Starters usually have to maintain their stuff for more innings, so deGrom throwing harder than most relievers was extremely rare. However, this graph also begins the main story of the project: velocity matters, but it does not fully explain why one fastball is better than another.
+
+# Velocity vs Spin
+
+```{r fig.width=9, fig.height=6}
+ggplot(top_pitchers, aes(release_speed, release_spin_rate, color = group)) +
+  geom_point(size = 4) +
+  geom_text_repel(aes(label = label),
+                  size = 3,
+                  max.overlaps = Inf) +
+  labs(title = "Velocity vs Spin Rate",
+       x = "Average Velocity",
+       y = "Average Spin Rate",
+       color = "Pitcher Hand") +
+  theme_minimal()
+```
+
+
+Spin rate helps explain why fastballs with similar velocity can still behave differently. Higher spin helps a fastball resist gravity, which makes the pitch drop less than hitters expect. This can create the illusion that the pitch is rising, even though it is really just staying up longer.
+
+Most pitchers in this group fall within a similar spin range, around 2250 to 2450 RPM. Tanner Scott is the clear outlier with much higher spin. His fastball profile is interesting because his spin and unusual release position help make the pitch play differently, showing again that velocity is not the only way to create a difficult fastball.
+# Movement
+
+
+```{r fig.width=9, fig.height=6}
+ggplot(top_pitchers, aes(pfx_x, pfx_z, color = group)) +
+  geom_point(size = 4) +
+  geom_text_repel(aes(label = label),
+                  size = 3,
+                  max.overlaps = Inf) +
+  labs(title = "Movement Profile",
+       x = "Horizontal Movement (pfx_x)",
+       y = "Vertical Movement (pfx_z)",
+       color = "Pitcher Hand") +
+  theme_minimal()
+```
+
+Movement shows how the fastball travels through the air instead of moving in a perfectly straight line. Horizontal movement measures side-to-side action, while vertical movement shows how much the pitch resists dropping.
+
+In general, more vertical movement can be valuable for a four-seam fastball because it helps the pitch stay above the hitter’s barrel and create swings and misses. Horizontal movement can also be useful if it creates an uncomfortable angle or pairs well with the pitcher’s other pitches. Less movement is usually easier for hitters to track, but movement by itself does not tell the whole story.
+
+Edwin Díaz is a good example of this. His movement does not look elite compared to the rest of the group, but his fastball is still extremely effective because of his low release point and strong extension. This shows that movement matters, but it is only one part of the full fastball profile.
+
+# Extension
+
+```{r fig.width=9, fig.height=5}
+top_pitchers$label_ext <- factor(top_pitchers$label,
+                                 levels = top_pitchers$label[order(top_pitchers$release_extension)])
+
+ggplot(top_pitchers, aes(x = label_ext,
+                         y = release_extension,
+                         fill = group)) +
+  geom_col(width = 0.75) +
+  coord_flip() +
+  labs(title = "Extension",
+       x = "",
+       y = "Average Extension",
+       fill = "Pitcher Hand") +
+  theme_minimal()
+```
+
+
+Extension measures how far in front of the rubber a pitcher releases the ball. More extension means the ball is released closer to home plate, which gives the hitter less time to react.
+
+This makes the fastball appear faster than its actual radar-gun velocity. Díaz and Chapman stand out here, which helps explain why their fastballs can play so well. Sandy Alcantara also stands out because his size and delivery allow him to create a different look as a starting pitcher. This is another example of how two fastballs with similar velocity can feel very different to a hitter.
+
+# Release Position
+
+
+```{r fig.width=9, fig.height=6}
+ggplot(top_pitchers, aes(release_pos_x, release_pos_z, color = group)) +
+  geom_point(size = 4) +
+  geom_text_repel(aes(label = label),
+                  size = 3,
+                  max.overlaps = Inf) +
+  labs(title = "Release Position",
+       x = "Release Position X",
+       y = "Release Position Z",
+       color = "Pitcher Hand") +
+  theme_minimal()
+```
+
+Release position shows where the ball comes out of the pitcher’s hand. Even among the hardest throwers, the release points are very different.
+
+Garrett Crochet releases the ball from a very high position, while Edwin Díaz has a much lower and more unusual release. These differences change how the ball looks to hitters. A unique release point can create deception, hide the ball longer, or make a fastball play better than its raw velocity and movement suggest.
+
+# Strike Percentage
+
+
+```{r fig.width=9, fig.height=5}
+top_pitchers$label_strike <- factor(top_pitchers$label,
+                                    levels = top_pitchers$label[order(top_pitchers$strike)])
+
+ggplot(top_pitchers, aes(x = label_strike,
+                         y = strike,
+                         fill = group)) +
+  geom_col(width = 0.75) +
+  coord_flip() +
+  scale_y_continuous(labels = scales::percent)+
+  labs(title = "Strike Percentage",
+       x = "",
+       y = "Strike Percentage",
+       fill = "Pitcher Hand") +
+  theme_minimal()
+```
+
+Strike percentage measures how often a fastball results in a strike, either by being called a strike, swung at and missed, fouled off, or put in play. Control matters because even elite velocity is less valuable if the pitcher cannot throw the pitch near the zone.
+
+However, more strikes do not always mean a better fastball. A pitcher can throw strikes but still give up damage if the pitch is too hittable. The best fastballs usually balance control with deception, movement, or swing-and-miss ability.
+
+# Radar Chart
+
+
+```{r fig.width=9, fig.height=7}
+radar_data <- top_pitchers[, c("release_speed",
+                               "release_spin_rate",
+                               "release_extension",
+                               "strike",
+                               "whiff")]
+
+names(radar_data) <- c("Velocity", "Spin", "Extension", "Strike %", "Whiff %")
+
+radar_scaled <- as.data.frame(scale(radar_data))
+
+radar_scaled <- rbind(rep(2, 5), rep(-2, 5), radar_scaled)
+
+rownames(radar_scaled) <- c("Max", "Min", top_pitchers$player_name)
+
+radarchart(radar_scaled,
+           axistype = 1,
+           pcol = rainbow(nrow(top_pitchers)),
+           plwd = 2,
+           plty = 1,
+           cglcol = "gray",
+           cglty = 1,
+           axislabcol = "gray",
+           title = "Radar Chart of Fastball Traits")
+
+legend("topright",
+       legend = top_pitchers$player_name,
+       col = rainbow(nrow(top_pitchers)),
+       lty = 1,
+       lwd = 2,
+       cex = 0.6)
+```
+
+The radar chart combines several fastball traits into one visual: velocity, spin, extension, strike percentage, and whiff percentage.
+
+This chart is useful because it shows that each pitcher has a different shape. Some pitchers rely more on velocity, while others stand out through spin, extension, or whiff ability. There is no single perfect fastball profile. Instead, effective fastballs are built from different combinations of strengths.
+
+# wOBA
+
+
+```{r fig.width=9, fig.height=5}
+top_pitchers$label_woba <- factor(top_pitchers$label,
+                                  levels = top_pitchers$label[order(top_pitchers$woba_value)])
+
+ggplot(top_pitchers, aes(x = label_woba,
+                         y = woba_value,
+                         fill = group)) +
+  geom_col(width = 0.75) +
+  coord_flip() +
+  labs(title = "wOBA Allowed",
+       x = "",
+       y = "Average wOBA",
+       fill = "Pitcher Hand") +
+  theme_minimal()
+```
+
+wOBA, or Weighted On-Base Average, measures how much offensive value hitters create. For pitchers, a lower wOBA allowed means hitters are doing less damage against that pitch.
+
+This graph is important because it shows that fastball quality is not the same as overall pitcher quality. deGrom was clearly the best overall pitcher in this group in 2021, but his fastball was not the best by wOBA. Pitchers like Cabrera and Brentz had better fastball wOBA results in this sample, even though they were not better pitchers overall. This shows that one pitch can perform well or poorly in a specific metric while the pitcher’s total value depends on much more.
+
+# Whiff Percentage
+
+
+```{r fig.width=9, fig.height=5}
+top_pitchers$label_whiff <- factor(top_pitchers$label,
+                                   levels = top_pitchers$label[order(top_pitchers$whiff)])
+
+ggplot(top_pitchers, aes(x = label_whiff,
+                         y = whiff,
+                         fill = group)) +
+  geom_col(width = 0.75) +
+  coord_flip() +
+  scale_y_continuous(labels = scales::percent)+
+  labs(title = "Whiff Percentage",
+       x = "",
+       y = "Whiff Percentage",
+       fill = "Pitcher Hand") +
+  theme_minimal()
+```
+
+Whiff percentage measures how often hitters swing and miss at a fastball. It is one of the clearest ways to measure whether a pitch can beat hitters directly.
+
+deGrom and Chapman stand out because their fastballs generate swings and misses. This matters because a whiff removes the chance for a ball in play. Other pitchers may rely less on pure whiffs and more on weak contact, command, or how their fastball works with the rest of their pitches. This again shows that there are multiple ways for a fastball to be effective.
+
+# What Makes Each Fastball Different?
+
+Jacob deGrom had the hardest fastball in this group and one of the most dominant seasons in recent baseball history, with a 1.08 ERA and 14.3 strikeouts per nine innings. His fastball shows how overwhelming velocity can be, especially from a starting pitcher. Still, his fastball was not the best in every individual metric, which shows that even a historic pitcher is more than just one pitch.
+
+Edwin Díaz and Aroldis Chapman show how relievers can make fastballs play up through traits beyond velocity. Díaz had a down year overall with a 3.45 ERA, but his fastball profile is still unique because of his low release point and strong extension. Chapman also had a down year by his standards with a 3.36 ERA, but his fastball still generated whiffs because of his velocity, extension, and power profile.
+
+Gerrit Cole and Sandy Alcantara show how starting pitchers can use hard fastballs in different ways. Cole had a 3.23 ERA, a 12.1 K/9, and finished second in Cy Young voting, showing how velocity and swing-and-miss ability can support an ace-level season. Alcantara had a 3.19 ERA with a lower strikeout rate, but his height, extension, and durability gave his fastball a different type of effectiveness.
+
+Other pitchers in the group show why context matters. Jake Brentz and Génesis Cabrera had better fastball wOBA results than deGrom in this sample, but they were not better overall pitchers. Garrett Crochet, Tanner Scott, and Liam Hendriks also show different paths: Crochet later developed into one of the best starters in the world, Scott found more success in later years, and Hendriks had a very strong 2021 season with a 2.54 ERA and 14.3 K/9.
+
+# Inference Analysis
+
+```{r}
+set.seed(1)
+
+obs_diff <- mean(top_pitchers$whiff[top_pitchers$release_speed >= median(top_pitchers$release_speed)]) -
+  mean(top_pitchers$whiff[top_pitchers$release_speed < median(top_pitchers$release_speed)])
+
+sim_diff <- replicate(1000, {
+  shuffled_whiff <- sample(top_pitchers$whiff)
+  mean(shuffled_whiff[top_pitchers$release_speed >= median(top_pitchers$release_speed)]) -
+    mean(shuffled_whiff[top_pitchers$release_speed < median(top_pitchers$release_speed)])
+})
+
+p_value <- mean(abs(sim_diff) >= abs(obs_diff))
+
+ggplot(data.frame(sim_diff), aes(x = sim_diff)) +
+  geom_histogram(bins = 25, fill = "gray70", color = "black") +
+  geom_vline(xintercept = obs_diff, color = "red", linewidth = 1.2) +
+  labs(
+    title = "Randomization Test for Fastball Velocity and Whiff Rate",
+    x = "Simulated Difference in Whiff Rate",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+p_value
+```
+
+**Hypotheses:**  
+H0: There is no difference in whiff rate between harder and slower fastballs in this group.  
+HA: There is a difference in whiff rate between harder and slower fastballs in this group.
+
+**P-value:** The p-value from the randomization test is shown above.
+
+**Conclusion:** This test compares whiff rates between the harder-throwing and slower-throwing pitchers in this group. If the p-value is small, there is evidence that velocity is related to whiff rate. If the p-value is large, there is not strong evidence of a difference in whiff rate based only on velocity.
+
+# Conclusion
+
+The main takeaway from this project is that there is no single way to build an effective fastball. Velocity matters because it reduces reaction time, but it does not tell the whole story. Spin, movement, extension, release position, strike percentage, wOBA, and whiff percentage all show different parts of fastball quality.
+
+The most interesting part is that the best pitcher does not always have the best fastball by every metric. deGrom had a historic season, but other pitchers had better fastball results in specific areas. This proves that fastballs are different, and their effectiveness comes from how multiple traits work together.
+
+A great fastball is not just the fastest pitch. It is a pitch that uses its own combination of speed, movement, release, extension, command, and deception to make hitters uncomfortable.

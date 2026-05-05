@@ -1,0 +1,122 @@
+---
+title: "Past Data Visualizations"
+description: |
+  Some past visualizations I made in Math 230.
+author:
+  - name: Mikey Myro
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+library(ggplot2)
+library(aRtsy)
+library(palmerpenguins)
+library(gapminder)
+```
+
+# Past Course Visualizations
+
+## Night Motion
+
+```{r}
+set.seed(15)
+canvas_strokes(colors = c("black", "grey40", "grey70", "white"))
+```
+
+## Sky Flow
+
+```{r}
+set.seed(150)
+canvas_ribbons(colors = colorPalette("sky"))
+```
+
+## Bucknell Spirit
+
+```{r}
+set.seed(5)
+canvas_tiles(colors = c("#FF6600", "#0033A0", "#FFFFFF", "#CCCCCC"))
+```
+
+## Flipper Length vs Bill Length
+
+```{r}
+penguins <- na.omit(palmerpenguins::penguins)
+
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm)) +
+  geom_point(aes(color = island, shape = species)) +
+  geom_smooth(method = "loess") +
+  labs(
+    title = "Flipper Length vs Bill Length",
+    x = "Bill Length (mm)",
+    y = "Flipper Length (mm)",
+    color = "Island",
+    shape = "Species"
+  ) +
+  theme_minimal()
+```
+
+**Data/Variables:** Uses the Palmer Penguins dataset with bill length, flipper length, species, and island.
+
+**What it shows:** As bill length increases, flipper length also tends to increase, with visible differences across species.
+
+## GDP vs Life Expectancy
+
+```{r}
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(alpha = 0.4) +
+  geom_density_2d() +
+  scale_x_log10() +
+  labs(
+    title = "GDP vs Life Expectancy",
+    x = "GDP per Capita",
+    y = "Life Expectancy"
+  ) +
+  theme_minimal()
+```
+
+**Data/Variables:** Uses the Gapminder dataset with GDP per capita and life expectancy.
+
+**What it shows:** Countries with lower GDP tend to have lower life expectancy, and life expectancy increases and levels off as GDP rises.
+
+## Confidence Interval Dashboard
+
+
+```{r}
+set.seed(1)
+
+x <- 1:50
+y <- 2*x + rnorm(50, 0, 10)
+
+df <- data.frame(x, y)
+
+model <- lm(y ~ x, data = df)
+
+ci95 <- as.data.frame(predict(model, interval = "confidence", level = 0.95))
+
+plot_df <- data.frame(
+  x = df$x,
+  y = df$y,
+  fit = ci95$fit,
+  lwr = ci95$lwr,
+  upr = ci95$upr
+)
+
+ggplot(plot_df, aes(x = x, y = y)) +
+  geom_point(alpha = 0.5) +
+  geom_line(aes(y = fit), color = "black") +
+  geom_line(aes(y = lwr), linetype = "dashed", color = "red") +
+  geom_line(aes(y = upr), linetype = "dashed", color = "red") +
+  labs(
+    title = "Linear Fit with 95% Confidence Interval",
+    x = "X",
+    y = "Y"
+  ) +
+  theme_minimal()
+```
+
+**Data/Variables:** Simulated data used to demonstrate confidence intervals.
+
+**What it shows:** Higher confidence levels produce wider intervals, while larger sample sizes make intervals narrower.

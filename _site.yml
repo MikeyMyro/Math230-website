@@ -1,0 +1,18 @@
+name: "Math230.website"
+title: "My Website"
+description: |
+  My Website
+output_dir: "docs"
+
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Past Data Visualizations"
+      href: pastdatavisualizations.html
+    - text: "Data Story"
+      href: datastory.html
+    - text: "Infographic"
+      href: Infographic.html
+
+output: distill::distill_article
