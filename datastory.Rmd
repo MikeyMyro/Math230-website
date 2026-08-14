@@ -25,14 +25,12 @@ The main question is not just who throws the hardest, but how different fastball
 
 This project shows that there is no single perfect fastball. Some pitchers win with pure velocity. Others win with extension, a unique release point, swing-and-miss ability, or the way their fastball fits with the rest of their arsenal. By looking at several different variables, this story shows how different hard fastballs are built.
 
-## Load Data
 
 ```{r}
 files <- list.files("archive 2", full.names = TRUE)
 mydata <- map_dfr(files, read_csv)
 ```
 
-## Clean Data
 
 ```{r}
 df <- mydata[mydata$game_year == 2021, ]
@@ -60,7 +58,7 @@ df$swing <- ifelse(df$description %in%
 df$strike <- ifelse(df$type %in% c("S", "X"), 1, 0)
 ```
 
-## Create Pitcher Summary
+
 
 ```{r}
 basic_summary <- aggregate(
@@ -377,43 +375,6 @@ Edwin Díaz and Aroldis Chapman show how relievers can make fastballs play up th
 Gerrit Cole and Sandy Alcantara show how starting pitchers can use hard fastballs in different ways. Cole had a 3.23 ERA, a 12.1 K/9, and finished second in Cy Young voting, showing how velocity and swing-and-miss ability can support an ace-level season. Alcantara had a 3.19 ERA with a lower strikeout rate, but his height, extension, and durability gave his fastball a different type of effectiveness.
 
 Other pitchers in the group show why context matters. Jake Brentz and Génesis Cabrera had better fastball wOBA results than deGrom in this sample, but they were not better overall pitchers. Garrett Crochet, Tanner Scott, and Liam Hendriks also show different paths: Crochet later developed into one of the best starters in the world, Scott found more success in later years, and Hendriks had a very strong 2021 season with a 2.54 ERA and 14.3 K/9.
-
-# Inference Analysis
-
-```{r}
-set.seed(1)
-
-obs_diff <- mean(top_pitchers$whiff[top_pitchers$release_speed >= median(top_pitchers$release_speed)]) -
-  mean(top_pitchers$whiff[top_pitchers$release_speed < median(top_pitchers$release_speed)])
-
-sim_diff <- replicate(1000, {
-  shuffled_whiff <- sample(top_pitchers$whiff)
-  mean(shuffled_whiff[top_pitchers$release_speed >= median(top_pitchers$release_speed)]) -
-    mean(shuffled_whiff[top_pitchers$release_speed < median(top_pitchers$release_speed)])
-})
-
-p_value <- mean(abs(sim_diff) >= abs(obs_diff))
-
-ggplot(data.frame(sim_diff), aes(x = sim_diff)) +
-  geom_histogram(bins = 25, fill = "gray70", color = "black") +
-  geom_vline(xintercept = obs_diff, color = "red", linewidth = 1.2) +
-  labs(
-    title = "Randomization Test for Fastball Velocity and Whiff Rate",
-    x = "Simulated Difference in Whiff Rate",
-    y = "Count"
-  ) +
-  theme_minimal()
-
-p_value
-```
-
-**Hypotheses:**  
-H0: There is no difference in whiff rate between harder and slower fastballs in this group.  
-HA: There is a difference in whiff rate between harder and slower fastballs in this group.
-
-**P-value:** The p-value from the randomization test is shown above.
-
-**Conclusion:** This test compares whiff rates between the harder-throwing and slower-throwing pitchers in this group. If the p-value is small, there is evidence that velocity is related to whiff rate. If the p-value is large, there is not strong evidence of a difference in whiff rate based only on velocity.
 
 # Conclusion
 

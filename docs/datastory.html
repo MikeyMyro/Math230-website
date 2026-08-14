@@ -94,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2026-05-04"/>
-  <meta property="article:created" itemprop="dateCreated" content="2026-05-04"/>
+  <meta property="article:published" itemprop="datePublished" content="2026-08-14"/>
+  <meta property="article:created" itemprop="dateCreated" content="2026-08-14"/>
   <meta name="article:author" content="Mikey Myro"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -114,7 +114,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Baseball Data Story"]},{"type":"character","attributes":{},"value":["Do harder-throwing pitchers actually have better fastballs?\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Mikey Myro"]}]}]},{"type":"character","attributes":{},"value":["2026-05-04"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Baseball Data Story"]},{"type":"character","attributes":{},"value":["Do harder-throwing pitchers actually have better fastballs?\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Mikey Myro"]}]}]},{"type":"character","attributes":{},"value":["2026-08-14"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2123,7 +2123,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Baseball Data Story","description":"Do harder-throwing pitchers actually have better fastballs?","authors":[{"author":"Mikey Myro","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2026-05-04T00:00:00.000-04:00","citationText":"Myro, 2026"}
+{"title":"Baseball Data Story","description":"Do harder-throwing pitchers actually have better fastballs?","authors":[{"author":"Mikey Myro","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2026-08-14T00:00:00.000-04:00","citationText":"Myro, 2026"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2157,7 +2157,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-byline">
   Mikey Myro  
   
-<br/>2026-05-04
+<br/>2026-08-14
 </div>
 
 <div class="d-article">
@@ -2165,15 +2165,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>This project looks at the hardest throwing four-seam fastball pitchers in 2021. I compare the five hardest throwing right-handed pitchers and the five hardest throwing left-handed pitchers, only including pitchers who threw at least 400 four-seam fastballs.</p>
 <p>The main question is not just who throws the hardest, but how different fastballs can be effective in different ways. Velocity clearly matters because it gives hitters less time to react, but it is only one part of the story. Fastballs can succeed through velocity, spin, movement, extension, release position, command, deception, or some combination of all of them.</p>
 <p>This project shows that there is no single perfect fastball. Some pitchers win with pure velocity. Others win with extension, a unique release point, swing-and-miss ability, or the way their fastball fits with the rest of their arsenal. By looking at several different variables, this story shows how different hard fastballs are built.</p>
-<h2 id="load-data">Load Data</h2>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<h2 id="clean-data">Clean Data</h2>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<h2 id="create-pitcher-summary">Create Pitcher Summary</h2>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
@@ -2393,21 +2390,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>Edwin Díaz and Aroldis Chapman show how relievers can make fastballs play up through traits beyond velocity. Díaz had a down year overall with a 3.45 ERA, but his fastball profile is still unique because of his low release point and strong extension. Chapman also had a down year by his standards with a 3.36 ERA, but his fastball still generated whiffs because of his velocity, extension, and power profile.</p>
 <p>Gerrit Cole and Sandy Alcantara show how starting pitchers can use hard fastballs in different ways. Cole had a 3.23 ERA, a 12.1 K/9, and finished second in Cy Young voting, showing how velocity and swing-and-miss ability can support an ace-level season. Alcantara had a 3.19 ERA with a lower strikeout rate, but his height, extension, and durability gave his fastball a different type of effectiveness.</p>
 <p>Other pitchers in the group show why context matters. Jake Brentz and Génesis Cabrera had better fastball wOBA results than deGrom in this sample, but they were not better overall pitchers. Garrett Crochet, Tanner Scott, and Liam Hendriks also show different paths: Crochet later developed into one of the best starters in the world, Scott found more success in later years, and Hendriks had a very strong 2021 season with a 2.54 ERA and 14.3 K/9.</p>
-<h1 id="inference-analysis">Inference Analysis</h1>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="datastory_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
-<pre><code>[1] 0.097</code></pre>
-</div>
-<p><strong>Hypotheses:</strong><br />
-H0: There is no difference in whiff rate between harder and slower fastballs in this group.<br />
-HA: There is a difference in whiff rate between harder and slower fastballs in this group.</p>
-<p><strong>P-value:</strong> The p-value from the randomization test is shown above.</p>
-<p><strong>Conclusion:</strong> This test compares whiff rates between the harder-throwing and slower-throwing pitchers in this group. If the p-value is small, there is evidence that velocity is related to whiff rate. If the p-value is large, there is not strong evidence of a difference in whiff rate based only on velocity.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>The main takeaway from this project is that there is no single way to build an effective fastball. Velocity matters because it reduces reaction time, but it does not tell the whole story. Spin, movement, extension, release position, strike percentage, wOBA, and whiff percentage all show different parts of fastball quality.</p>
 <p>The most interesting part is that the best pitcher does not always have the best fastball by every metric. deGrom had a historic season, but other pitchers had better fastball results in specific areas. This proves that fastballs are different, and their effectiveness comes from how multiple traits work together.</p>
 <p>A great fastball is not just the fastest pitch. It is a pitch that uses its own combination of speed, movement, release, extension, command, and deception to make hitters uncomfortable.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
