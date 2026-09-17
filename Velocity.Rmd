@@ -1,0 +1,337 @@
+---
+title: "Velocity Fastballs"
+description: |
+  The hardest four-seam fastballs of 2021 and what separated the effective ones from the rest.
+author:
+  - name: Mikey Myro
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    css: fastball_style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  out.width = "100%"
+)
+
+source("fastball_setup.R")
+```
+
+<style>
+
+.analysis-box {
+  background: #f7f7f7;
+  border-left: 5px solid #D55E00;
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin: 22px 0 30px 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 22px 0 32px 0;
+}
+
+.player-card {
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: #fafafa;
+}
+
+.player-name {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.player-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #D55E00;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.player-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444444;
+}
+
+.comparison-intro {
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.6;
+  margin: 15px 0 20px 0;
+}
+
+@media (max-width: 750px) {
+  .player-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+
+<div class="profile-hero velocity-hero">
+
+<div class="hero-title">Velocity</div>
+
+<div class="hero-subtitle">
+
+The hardest four-seam fastballs in the 2021 qualified group. Velocity gives a pitcher an immediate advantage, but the pitches at the top of the radar gun still succeed in very different ways.
+
+</div>
+
+</div>
+
+# Velocity
+
+It is no secret that velocity is king.
+
+That has been true throughout baseball history, from Walter Johnson overpowering hitters more than a century ago, to Nolan Ryan and Randy Johnson, and now pitchers like Jacob Misiorowski. The harder a pitch is thrown, the less time a hitter has to recognize it, make a decision, and get the barrel to the ball.
+
+At the same time, hitters have continued to get better and elite velocity has become much more common. Throwing 95 or 96 mph is no longer nearly as unusual as it once was.
+
+Velocity creates a huge advantage, but velocity alone is not enough to make a fastball elite.
+
+<div class="info-grid">
+
+<div class="info-card">
+<div class="info-title">Ranking</div>
+<div class="info-value">Average Velocity</div>
+<div class="info-description">
+
+The 15 hardest average four-seam fastballs among pitchers with at least 500 four-seamers.
+
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Physical Advantage</div>
+<div class="info-value">Reaction Time</div>
+<div class="info-description">
+
+More velocity gives the hitter less time to identify the pitch and get the barrel into position.
+
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">The Limitation</div>
+<div class="info-value">Velocity Is Not Enough</div>
+<div class="info-description">
+
+Movement, command, release characteristics, and the rest of the arsenal still determine how the velocity plays.
+
+</div>
+</div>
+
+</div>
+
+## Hardest Four-Seam Fastballs
+
+<div class="section-intro">
+
+These were the 15 highest average four-seam velocities among the qualified pitchers in 2021.
+
+</div>
+
+```{r fig.width=9, fig.height=6}
+velocity_page$leaderboard
+```
+
+# Movement Profiles
+
+The movement profiles show how different fastballs can be even when they are thrown at nearly the same velocity.
+
+Some of the hardest fastballs also have elite ride. Others run, some cut, and others have relatively ordinary movement and simply overwhelm hitters with speed.
+
+This is one of the things I find most interesting about fastballs. We tend to group pitches together because they all carry the same four-seam label, but two pitches at 98 mph can look completely different to a hitter.
+
+The radar gun gives you one piece of the pitch. The movement profile tells you what kind of 98 mph fastball the hitter actually has to deal with.
+
+## Actual Movement
+
+<div class="section-intro">
+
+Raw horizontal break and induced vertical break show the actual shape of each pitch. Even within the hardest fastballs in baseball, there is no single movement profile.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+velocity_page$movement
+```
+
+## Movement Relative to Average
+
+<div class="section-intro">
+
+Looking at movement relative to average makes the differences even clearer. A pitcher near the center relies more heavily on velocity, while pitchers farther from the center combine elite speed with an unusual movement profile.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+velocity_page$profile_space
+```
+
+<div class="analysis-box">
+
+<strong>Velocity gets a pitcher into an elite physical category immediately, but the movement chart shows why the radar gun cannot be the entire evaluation.</strong>
+
+A fastball with elite velocity and average movement asks a different question of the hitter than a fastball with the same velocity and elite ride, run, or cut. The speed may be similar, but the pitches themselves are not.
+
+</div>
+
+# Velocity and Expected Results
+
+<div class="section-intro">
+
+The relationship between velocity and expected wOBA gives a broader view of whether harder fastballs generally produced better results across the qualified group.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+velocity_page$relationship
+```
+
+# Effectiveness
+
+The effectiveness numbers reinforce why velocity matters, but they also show that velocity is not everything that goes into a fastball.
+
+The top of the velocity leaderboard is packed with some of the best pitchers of the era. Jacob deGrom, Edwin Díaz, Aroldis Chapman, Sandy Alcantara, Gerrit Cole, and Liam Hendriks all appear near the top.
+
+They are very different pitchers, but elite velocity has been a major part of what made each of them successful.
+
+## Velocity Group vs Qualified Average
+
+<div class="comparison-intro">
+
+Before looking at individual pitchers, the group average gives a better sense of how the hardest fastballs performed compared with the qualified four-seam population as a whole.
+
+</div>
+
+```{r}
+make_effectiveness_comparison(
+  velocity_fastballs,
+  "Top 15 Velocity Fastballs"
+)
+```
+
+## Expected wOBA
+
+Lower xwOBA indicates that hitters were expected to produce less offensive value against the pitch.
+
+```{r fig.width=9, fig.height=6}
+velocity_page$xwoba
+```
+
+## Whiff Rate
+
+Whiff rate shows how often hitters completely missed when they swung. This is where elite velocity should have one of its clearest advantages.
+
+```{r fig.width=9, fig.height=6}
+velocity_page$whiff
+```
+
+## Run Value per 100
+
+Run Value per 100 puts each fastball on the same scale regardless of workload and shows which pitchers actually turned their velocity into overall pitch value.
+
+```{r fig.width=9, fig.height=6}
+velocity_page$run_value
+```
+
+## Hard-Hit Rate
+
+Velocity can miss bats, but an elite fastball also has to avoid being squared up when hitters do make contact.
+
+```{r fig.width=9, fig.height=6}
+velocity_page$hard_hit
+```
+
+# Two Sides of Elite Velocity
+
+<div class="player-grid">
+
+<div class="player-card">
+
+<div class="player-label">Velocity at its ceiling</div>
+
+<div class="player-name">Jacob deGrom</div>
+
+<div class="player-text">
+
+deGrom is the biggest anomaly on the list. In 2021, his four-seam fastball averaged around 99 mph as a starting pitcher. At the time, that kind of sustained velocity from a starter was almost unheard of.
+
+When that velocity was paired with his elite slider and command, hitters had almost no margin for error. His fastball was not just hard; the entire arsenal made the velocity play even harder.
+
+That combination helped produce one of the most dominant stretches of starting pitching I have ever seen.
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-label">Velocity without the same results</div>
+
+<div class="player-name">Aroldis Chapman</div>
+
+<div class="player-text">
+
+Chapman's fastball is one of the most famous pitches in baseball history, and he was still throwing extremely hard in 2021. The results, however, were not nearly as dominant.
+
+Command was likely part of that. He walked more hitters that season than in any year since his rookie season.
+
+Elite velocity becomes much less valuable when hitters do not have to consistently respect the strike zone.
+
+</div>
+
+</div>
+
+</div>
+
+<div class="analysis-box">
+
+deGrom and Chapman are a good example of why velocity cannot be the entire evaluation.
+
+Both possessed velocity that almost every pitcher in baseball would want. One was in the middle of a historically dominant stretch, while the other had a season where the fastball did not produce results that matched the radar gun.
+
+Velocity raises the ceiling of a pitch. <strong>Movement, command, release characteristics, and how the fastball works with the rest of the arsenal determine how much of that ceiling a pitcher actually reaches.</strong>
+
+</div>
+
+# Complete Profiles
+
+<div class="takeaway-box">
+
+<div class="takeaway-title">Velocity in Context</div>
+
+<div class="takeaway-text">
+
+The hardest fastballs are not one uniform pitch type. The full profiles show how velocity combines with IVB, horizontal movement, expected results, whiffs, and contact quality.
+
+The most interesting fastballs are the ones where multiple advantages begin stacking on top of one another.
+
+</div>
+
+</div>
+
+```{r}
+make_stats_table(
+  velocity_fastballs,
+  "Top 15 Four-Seam Fastballs by Average Velocity"
+)
+```

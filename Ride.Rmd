@@ -1,0 +1,375 @@
+---
+title: "Ride Fastballs"
+description: |
+  How extreme vertical movement changes the way a four-seam fastball plays.
+author:
+  - name: Mikey Myro
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    css: fastball_style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  out.width = "100%"
+)
+
+source("fastball_setup.R")
+```
+
+<style>
+
+.analysis-box {
+  background: #f7f7f7;
+  border-left: 5px solid #0072B2;
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin: 22px 0 30px 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 22px 0 32px 0;
+}
+
+.player-card {
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: #fafafa;
+}
+
+.player-name {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.player-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0072B2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.player-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444444;
+}
+
+.comparison-intro {
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.6;
+  margin: 15px 0 20px 0;
+}
+
+.cut-ride-box {
+  background: #f7f7f7;
+  border: 1px solid #dedede;
+  border-top: 5px solid #0072B2;
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin: 24px 0 32px 0;
+  line-height: 1.7;
+}
+
+@media (max-width: 750px) {
+  .player-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+
+<div class="profile-hero ride-hero">
+
+<div class="hero-title">Ride</div>
+
+<div class="hero-subtitle">
+
+Four-seam fastballs that resist vertical drop more than average. Ride can allow a fastball to play above its velocity by keeping the pitch above the path a hitter expects.
+
+</div>
+
+</div>
+
+# Ride
+
+The idea of a “rising fastball” existed long before Statcast gave us a number for it.
+
+Hitters and coaches have talked forever about fastballs that seem harder than the radar gun, stay above barrels, or look like they jump as they get to the plate.
+
+The ball is not actually rising. Gravity is still pulling every pitch toward the ground. What changes is how much the fastball fights that drop.
+
+Induced Vertical Break gives us a way to measure that. A high-IVB fastball drops less than the hitter expects. A hitter has seen thousands of fastballs and develops an expectation for where the ball should end up. When the pitch stays above that expected path, the barrel can pass underneath it.
+
+That is ride.
+
+It can also help a fastball play faster than its actual velocity. A 92 mph fastball with elite ride does not literally become a 97 mph fastball, but it can feel quicker because it arrives on a trajectory that is different from what the hitter expects.
+
+This is the fastball shape I understand most personally. My own fastball was around 20 inches of IVB. I never had elite velocity, but it consistently missed barrels and generated swings and misses. Once I learned more about IVB, the idea that my fastball “played up” started to make a lot more sense.
+
+<div class="info-grid">
+
+<div class="info-card">
+<div class="info-title">Ranking</div>
+<div class="info-value">IVB vs Average</div>
+<div class="info-description">
+
+The 15 four-seamers with the most induced vertical break relative to the average fastball from the same throwing side.
+
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Physical Trait</div>
+<div class="info-value">Less Vertical Drop</div>
+<div class="info-description">
+
+More IVB means the pitch resists gravity more effectively and stays above the trajectory a hitter expects.
+
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">How It Plays</div>
+<div class="info-value">Above the Barrel</div>
+<div class="info-description">
+
+Ride can create swings underneath the baseball and allow velocity to play harder than the radar gun suggests.
+
+</div>
+</div>
+
+</div>
+
+## Most Ride Relative to Average
+
+<div class="section-intro">
+
+These 15 pitchers produced the most IVB relative to the average four-seam fastball from the same throwing side.
+
+</div>
+
+```{r fig.width=9, fig.height=6}
+ride_page$leaderboard
+```
+
+# Movement Profiles
+
+The ride leaderboard is a good example of why velocity does not tell the whole story.
+
+There are not as many huge names on this list as there are on the velocity page, but that is part of what makes it interesting. J.P. Feyereisen is one of the best examples from 2021. He was not throwing 98 or 99 mph, but his four-seam fastball had around 21 inches of IVB.
+
+That is an extreme amount of ride for that velocity.
+
+Alex Vesia is a modern example I think of in a similar way. He shows how a fastball can be extremely effective without elite radar-gun velocity because the pitch simply does not move the way hitters expect.
+
+At the same time, the group also shows that high IVB alone does not automatically create a dominant pitch. Ride is a weapon, but it still has to work with velocity, location, horizontal movement, deception, and the rest of the arsenal.
+
+## Actual Movement
+
+<div class="section-intro">
+
+Raw IVB and horizontal break show what these pitches actually do. The pitchers may all rank highly in ride, but their horizontal movement creates very different overall fastball shapes.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+ride_page$movement
+```
+
+## Movement Relative to Average
+
+<div class="section-intro">
+
+The vertical axis is the most important part of this chart for the Ride group. The farther above zero a pitcher sits, the more IVB he creates relative to average.
+
+The horizontal axis shows that high-ride fastballs can still run, stay relatively straight, or cut.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+ride_page$profile_space
+```
+
+<div class="analysis-box">
+
+<strong>Ride does not describe the entire fastball.</strong>
+
+Two pitchers can both have elite IVB while throwing completely different pitches horizontally. That is why I think looking at the full movement profile is more valuable than treating IVB as a standalone number.
+
+The vertical movement may be what gets a pitcher onto this list, but the horizontal movement can completely change how that ride is presented to a hitter.
+
+</div>
+
+# Cut-Ride
+
+<div class="cut-ride-box">
+
+The fastball shape I have always found the most interesting is <strong>cut-ride</strong>.
+
+A high-ride fastball is already difficult because it stays above the vertical path a hitter expects. If that same pitch also refuses to run arm-side, or actually moves toward the glove side relative to comparable four-seamers, the hitter is dealing with an unusual pitch in two directions at once.
+
+Clayton Kershaw is a great example. His 2021 four-seam had roughly 19 inches of IVB while producing almost no raw horizontal break. Relative to comparable fastballs, it cut significantly.
+
+Visually, that shape starts to share some characteristics with harder gyro-style sliders. There is very little horizontal movement, and the pitch does not follow the arm-side path hitters normally associate with a four-seam fastball.
+
+The major difference is that the fastball is still carrying close to 20 inches of vertical ride.
+
+A pitch with that much ride and almost no horizontal break can stay above the barrel while also refusing to move horizontally the way a hitter expects a four-seamer to move.
+
+Feyereisen showed some of the same cut-ride characteristics in 2021.
+
+Kershaw is the more recognizable example, and seeing him stand out in both the Ride and Cut groups makes sense. His career was built around unusual pitch shapes, elite command, and pitches that complemented one another extremely well.
+
+</div>
+
+<div class="player-grid">
+
+<div class="player-card">
+
+<div class="player-label">Ride Without Elite Velocity</div>
+
+<div class="player-name">J.P. Feyereisen</div>
+
+<div class="player-text">
+
+Feyereisen is one of the best examples of why IVB matters. His fastball did not have elite velocity, but it sat at the very top of the ride leaderboard.
+
+The pitch created an extreme vertical shape without needing 98 or 99 mph to do it.
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-label">Cut-Ride</div>
+
+<div class="player-name">Clayton Kershaw</div>
+
+<div class="player-text">
+
+Kershaw combined elite ride with almost no raw horizontal break. Instead of following the traditional arm-side movement of a four-seamer, the pitch stayed vertically while cutting relative to comparable fastballs.
+
+That combination gives the hitter an unusual shape in both directions.
+
+</div>
+
+</div>
+
+</div>
+
+# Ride and Expected Results
+
+<div class="section-intro">
+
+Comparing IVB relative to average with expected wOBA shows whether additional ride consistently translated into better results across the qualified group.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+ride_page$relationship
+```
+
+# Effectiveness
+
+The Ride group performs well overall, but the results are not as simple as “more ride equals a better fastball.”
+
+Some of the highest-IVB pitches generate elite whiff rates, while others are much closer to average. That tells me ride should be viewed as one part of the pitch rather than a guarantee of success.
+
+What it does show is that a pitcher does not necessarily need elite velocity to have an unusual or effective fastball. If the pitch lives on a trajectory hitters are not used to seeing, that movement can create its own advantage.
+
+## Expected wOBA
+
+Lower xwOBA shows which high-ride fastballs were best at limiting expected offensive production.
+
+```{r fig.width=9, fig.height=6}
+ride_page$xwoba
+```
+
+## Whiff Rate
+
+Ride is commonly associated with getting the fastball above the barrel. Whiff rate shows which pitchers actually converted that shape into swings and misses.
+
+```{r fig.width=9, fig.height=6}
+ride_page$whiff
+```
+
+## Run Value per 100
+
+Run Value per 100 shows which pitchers turned their high-IVB shape into overall pitch value.
+
+```{r fig.width=9, fig.height=6}
+ride_page$run_value
+```
+
+## Hard-Hit Rate
+
+A pitch does not have to generate a whiff to be effective. Hard-Hit Rate shows whether the Ride group also prevented hitters from consistently squaring the baseball up.
+
+```{r fig.width=9, fig.height=6}
+ride_page$hard_hit
+```
+
+<div class="analysis-box">
+
+Ride gives a pitcher something that velocity alone cannot: <strong>a different path to the plate.</strong>
+
+That is why I think it is one of the most valuable characteristics a lower-velocity pitcher can have. The hitter still has to cover the same distance in roughly the same amount of time, but the baseball does not arrive where the hitter's previous experience tells him it should.
+
+At the same time, the spread in results makes it clear that IVB cannot be evaluated in isolation. The best versions of the pitch combine ride with other advantages — velocity, cut, deception, command, or an arsenal that forces the hitter to protect against a completely different movement profile.
+
+</div>
+
+# Ride Group vs Qualified Average
+
+<div class="comparison-intro">
+
+The group average provides a simple comparison between the 15 highest-ride fastballs and the qualified four-seam population as a whole.
+
+</div>
+
+```{r}
+make_effectiveness_comparison(
+  ride_fastballs,
+  "Top 15 Ride Fastballs"
+)
+```
+
+# Complete Profiles
+
+<div class="takeaway-box">
+
+<div class="takeaway-title">Ride in Context</div>
+
+<div class="takeaway-text">
+
+IVB identifies the vertical characteristic that makes these pitches unusual, but the complete profiles show how much variation still exists inside the group.
+
+Some high-ride fastballs rely almost entirely on vertical movement. Others combine ride with velocity, run, or cut. The most effective pitches are rarely defined by only one number.
+
+</div>
+
+</div>
+
+```{r}
+make_stats_table(
+  ride_fastballs,
+  "Top 15 Four-Seam Fastballs by IVB Relative to Average"
+)
+```

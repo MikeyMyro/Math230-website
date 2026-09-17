@@ -88,9 +88,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>Fastball Analysis</title>
+  <title>Fastball Analysis: Run Fastballs</title>
 
-  <meta property="description" itemprop="description" content="Understanding how velocity, movement, and pitch shape influence four-seam fastball effectiveness."/>
+  <meta property="description" itemprop="description" content="How extreme horizontal movement changes the shape and effectiveness of a four-seam fastball."/>
 
 
   <!--  https://schema.org/Article -->
@@ -99,22 +99,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta name="article:author" content="Mikey Myro"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Fastball Analysis"/>
+  <meta property="og:title" content="Fastball Analysis: Run Fastballs"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Understanding how velocity, movement, and pitch shape influence four-seam fastball effectiveness."/>
+  <meta property="og:description" content="How extreme horizontal movement changes the shape and effectiveness of a four-seam fastball."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Fastball Analysis"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Fastball Analysis"/>
-  <meta property="twitter:description" content="Understanding how velocity, movement, and pitch shape influence four-seam fastball effectiveness."/>
+  <meta property="twitter:title" content="Fastball Analysis: Run Fastballs"/>
+  <meta property="twitter:description" content="How extreme horizontal movement changes the shape and effectiveness of a four-seam fastball."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Fastball Analysis"]},{"type":"character","attributes":{},"value":["Understanding how velocity, movement, and pitch shape influence four-seam fastball effectiveness.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Mikey Myro"]}]}]},{"type":"character","attributes":{},"value":["2026-09-16"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Run Fastballs"]},{"type":"character","attributes":{},"value":["How extreme horizontal movement changes the shape and effectiveness of a four-seam fastball.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Mikey Myro"]}]}]},{"type":"character","attributes":{},"value":["2026-09-16"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["css"]}},"value":[{"type":"character","attributes":{},"value":["fastball_style.css"]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2115,6 +2115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_site_in_header-->
   <!--/radix_placeholder_site_in_header-->
 
+  <link rel="stylesheet" href="fastball_style.css" type="text/css"/>
 
 </head>
 
@@ -2123,7 +2124,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Fastball Analysis","description":"Understanding how velocity, movement, and pitch shape influence four-seam fastball effectiveness.","authors":[{"author":"Mikey Myro","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2026-09-16T00:00:00.000-04:00","citationText":"Myro, 2026"}
+{"title":"Run Fastballs","description":"How extreme horizontal movement changes the shape and effectiveness of a four-seam fastball.","authors":[{"author":"Mikey Myro","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2026-09-16T00:00:00.000-04:00","citationText":"Myro, 2026"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2149,11 +2150,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Fastball Analysis</h1>
+<h1>Run Fastballs</h1>
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Understanding how velocity, movement, and pitch shape influence four-seam fastball effectiveness.</p></p>
+<p><p>How extreme horizontal movement changes the shape and effectiveness of a four-seam fastball.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2165,539 +2166,602 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <style>
 
-.intro-text {
-  font-size: 17px;
-  line-height: 1.75;
-  max-width: 900px;
-  margin-bottom: 30px;
-}
-
-.section-intro {
-  font-size: 16px;
-  color: #555555;
-  line-height: 1.65;
-  margin-bottom: 22px;
-}
-
-.story-box {
+.analysis-box {
   background: #f7f7f7;
-  border-left: 5px solid #C94C2E;
+  border-left: 5px solid #009E73;
   border-radius: 8px;
-  padding: 24px 26px;
-  margin: 22px 0 38px 0;
-  font-size: 16px;
-  line-height: 1.75;
-}
-
-.scope-box {
-  border: 1px solid #dddddd;
-  border-radius: 10px;
   padding: 20px 22px;
-  margin: 24px 0 35px 0;
-  background: #fafafa;
-  line-height: 1.65;
+  margin: 22px 0 30px 0;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
-.scope-title {
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 7px;
-}
-
-.metric-grid {
+.player-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  margin: 22px 0 35px 0;
+  margin: 22px 0 32px 0;
 }
 
-.metric-card {
+.player-card {
   border: 1px solid #e3e3e3;
   border-radius: 10px;
   padding: 18px 20px;
   background: #fafafa;
 }
 
-.metric-name {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 7px;
-}
-
-.metric-description {
-  font-size: 14px;
-  line-height: 1.55;
-  color: #444444;
-}
-
-.metric-takeaway {
-  margin-top: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #666666;
-}
-
-.profile-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  margin: 25px 0 40px 0;
-}
-
-.profile-card {
-  border-radius: 10px;
-  padding: 20px 22px;
-  color: white;
-}
-
-.profile-title {
-  font-size: 22px;
+.player-name {
+  font-size: 19px;
   font-weight: 700;
   margin-bottom: 6px;
 }
 
-.profile-metric {
-  font-size: 13px;
-  font-weight: 600;
-  opacity: 0.9;
-  margin-bottom: 10px;
-}
-
-.profile-description {
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.velocity-card {
-  background: #D55E00;
-}
-
-.ride-card {
-  background: #0072B2;
-}
-
-.run-card {
-  background: #009E73;
-}
-
-.cut-card {
-  background: #CC79A7;
-}
-
-.landscape-key {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin: 18px 0 30px 0;
-}
-
-.landscape-item {
-  background: #f7f7f7;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  padding: 14px 16px;
-  text-align: center;
-}
-
-.landscape-direction {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 3px;
-}
-
-.landscape-description {
-  font-size: 13px;
-  color: #555555;
-}
-
-.effectiveness-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin: 22px 0 35px 0;
-}
-
-.effect-card {
-  border-top: 4px solid #C94C2E;
-  border-radius: 8px;
-  padding: 16px 18px;
-  background: #fafafa;
-  border-left: 1px solid #e5e5e5;
-  border-right: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.effect-name {
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.effect-description {
-  font-size: 13px;
-  color: #444444;
-  line-height: 1.5;
-}
-
-.direction-good {
-  margin-top: 8px;
+.player-label {
   font-size: 12px;
   font-weight: 700;
+  color: #009E73;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.player-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444444;
+}
+
+.comparison-intro {
+  font-size: 15px;
   color: #555555;
+  line-height: 1.6;
+  margin: 15px 0 20px 0;
 }
 
-.method-box {
-  background: #f3f3f3;
-  border-left: 5px solid #444444;
-  padding: 20px 22px;
-  margin: 25px 0 35px 0;
-  line-height: 1.7;
-}
-
-.ranking-box {
-  background: #f8f8f8;
-  border-top: 4px solid #C94C2E;
-  border-radius: 9px;
+.disclaimer-box {
+  background: #f7f7f7;
+  border: 1px solid #dedede;
+  border-top: 5px solid #009E73;
+  border-radius: 10px;
   padding: 22px 24px;
-  margin: 25px 0 35px 0;
+  margin: 24px 0 32px 0;
   line-height: 1.7;
 }
 
 @media (max-width: 750px) {
-
-  .metric-grid,
-  .profile-grid,
-  .effectiveness-grid,
-  .landscape-key {
+  .player-grid {
     grid-template-columns: 1fr;
   }
-
 }
 
 </style>
-<h1 id="fastball-analysis">Fastball Analysis</h1>
-<div class="story-box">
-<p>I walked on to a <strong>Division I baseball program throwing 82 mph</strong>. It was not me taking a gamble on myself. I knew I was a good enough pitcher to compete at that level despite not throwing hard because I had already been successful against high-level hitters.</p>
-<p>I had a <strong>plus-plus changeup</strong>, but my fastball also consistently generated swings and misses. I knew the changeup helped the fastball play, but throughout my career I continued to hear the same thing:</p>
-<p><strong>my fastball “played up” compared with its velocity.</strong></p>
-<p><br><br></p>
-<p>I made the team my freshman year, and a few years later a coach told me that part of the reason was the potential they saw in my <strong>analytics and pitch profile</strong>.</p>
-<p>My four years of college baseball sent me down a rabbit hole of obsessing over baseball analytics and understanding what actually makes a pitch good. I spent four years watching guys throw 92 mph and get lit up while other guys sat 85 mph and blew hitters’ doors off.</p>
-<p>That led me to study the characteristics behind different fastball shapes — <strong>running and sinking fastballs, cutting fastballs, riding fastballs, and flatter fastball profiles</strong> — and to understand why the radar gun only tells part of the story.</p>
-<p><br><br></p>
-<p>This analysis originally started as a school project because I wanted to understand what makes a fastball effective. I did not have enough time then to take the analysis as far as I wanted.</p>
-<p>I came back to it to look more deeply at which physical properties of a <strong>four-seam fastball</strong> are associated with the best results.</p>
-</div>
-<h1 id="four-seam-fastball-data">Four-Seam Fastball Data</h1>
-<div class="section-intro">
-<p>The analysis uses MLB pitches classified by Baseball Savant as <strong>four-seam fastballs (FF)</strong> during the 2021 season.</p>
-<p>Pitchers who threw at least <strong>500 four-seam fastballs</strong> are included in the primary movement comparisons.</p>
-</div>
-<div class="scope-box">
-<div class="scope-title">
-Pitch Classification Matters
-</div>
-<p>The <strong>Run</strong> and <strong>Cut</strong> groups only represent pitches that Baseball Savant classified as four-seam fastballs.</p>
-<p>That distinction is important.</p>
-<p>Fastballs with significant arm-side run are often classified as <strong>sinkers</strong>, while fastballs with significant glove-side movement are often classified as <strong>cutters</strong>. Because those pitches fall under different classifications, they are not included here.</p>
-<p>The Run and Cut sections therefore do not represent every running or cutting fastball in baseball. They represent the most extreme running and cutting movement profiles <strong>within the four-seam fastball classification</strong>.</p>
-</div>
-<h1 id="understanding-fastball-movement">Understanding Fastball Movement</h1>
-<div class="section-intro">
-<p>Fastball shape is defined by more than velocity. Vertical and horizontal movement describe how the ball travels to the plate, while relative movement shows how unusual that shape is compared with other fastballs.</p>
-</div>
-<div class="metric-grid">
-<div class="metric-card">
-<div class="metric-name">
-Velocity
-</div>
-<div class="metric-description">
-<p>Average pitch speed in miles per hour. More velocity gives a hitter less time to recognize the pitch, make a decision, and get the barrel to the ball.</p>
-</div>
-<div class="metric-takeaway">
-<p>Higher = Faster</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-Induced Vertical Break (IVB)
-</div>
-<div class="metric-description">
-<p>Measures the vertical movement created by aerodynamic forces on the baseball. A high-IVB fastball resists vertical drop more effectively as it travels toward the plate.</p>
-</div>
-<div class="metric-takeaway">
-<p>Higher IVB = More Ride</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-IVB vs Average
-</div>
-<div class="metric-description">
-<p>Measures how much more or less IVB a pitcher generates compared with the average four-seam fastball from the same throwing side.</p>
-</div>
-<div class="metric-takeaway">
-<p>+3.0 = 3 inches more IVB than average</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-Horizontal Break (HB)
-</div>
-<div class="metric-description">
-<p>Measures the actual side-to-side movement of the pitch in inches. Horizontal break helps describe whether a fastball has more run, stays relatively straight, or takes on a cutting shape.</p>
-</div>
-<div class="metric-takeaway">
-<p>Describes horizontal pitch shape</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-HB vs Comparable
-</div>
-<div class="metric-description">
-<p>Measures how much a fastball’s horizontal movement differs from comparable four-seam fastballs.</p>
-</div>
-<div class="metric-takeaway">
-<p>Positive = More Run · Negative = More Cut</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-Relative Movement
-</div>
-<div class="metric-description">
-<p>Raw movement shows what a pitch does. Relative movement shows how much that pitch separates itself from the movement hitters are more accustomed to seeing.</p>
-</div>
-<div class="metric-takeaway">
-<p>0 = Comparable to the baseline</p>
-</div>
-</div>
-</div>
-<h1 id="four-fastball-shapes">Four Fastball Shapes</h1>
-<div class="section-intro">
-<p>Four-seam fastballs can separate themselves in very different ways. The four profiles below isolate the physical characteristics used throughout the analysis.</p>
-</div>
-<div class="profile-grid">
-<div class="profile-card velocity-card">
-<div class="profile-title">
-Velocity
-</div>
-<div class="profile-metric">
-Average Velocity
-</div>
-<div class="profile-description">
-<p>The hardest four-seam fastballs among the qualified pitchers.</p>
-</div>
-</div>
-<div class="profile-card ride-card">
-<div class="profile-title">
-Ride
-</div>
-<div class="profile-metric">
-IVB vs Average
-</div>
-<div class="profile-description">
-<p>Fastballs that resist vertical drop substantially more than average and produce the most extreme riding shapes.</p>
-</div>
-</div>
-<div class="profile-card run-card">
-<div class="profile-title">
+<div class="profile-hero run-hero">
+<div class="hero-title">
 Run
 </div>
-<div class="profile-metric">
-High HB vs Comparable
-</div>
-<div class="profile-description">
-<p>Four-seam fastballs with the most horizontal arm-side movement relative to comparable pitches.</p>
+<div class="hero-subtitle">
+<p>Four-seam fastballs with more horizontal arm-side movement than comparable pitches. These fastballs create a very different shape from the traditional high-ride four-seamer.</p>
 </div>
 </div>
-<div class="profile-card cut-card">
-<div class="profile-title">
-Cut
+<h1 id="run">Run</h1>
+<p>The pitch-classification disclaimer matters more on this page than anywhere else.</p>
+<p>These are <strong>running four-seam fastballs, not sinkers</strong>.</p>
+<p>A lot of the most extreme arm-side fastballs in baseball are classified by Baseball Savant as sinkers, so they never enter this group. This is not a full evaluation of whether run itself is good or bad.</p>
+<p>It is specifically a look at what happens when pitches that are still classified as four-seam fastballs have much more horizontal movement than comparable four-seamers.</p>
+<div class="disclaimer-box">
+<p><strong>Pitch Classification Matters</strong></p>
+<p><br><br></p>
+<p>Many pitchers who intentionally chase extreme arm-side movement throw pitches that are classified as sinkers rather than four-seam fastballs.</p>
+<p>That means this group should not be viewed as the best running fastballs in baseball. It represents the four-seamers that sit on the extreme running side of the four-seam movement spectrum.</p>
 </div>
-<div class="profile-metric">
-Low HB vs Comparable
+<div class="info-grid">
+<div class="info-card">
+<div class="info-title">
+Ranking
 </div>
-<div class="profile-description">
-<p>Four-seam fastballs with less arm-side movement than comparable pitches, creating a more cutting horizontal profile.</p>
+<div class="info-value">
+HB vs Comparable
+</div>
+<div class="info-description">
+<p>The 15 four-seamers with the most horizontal arm-side movement relative to comparable pitches.</p>
+</div>
+</div>
+<div class="info-card">
+<div class="info-title">
+Physical Trait
+</div>
+<div class="info-value">
+Arm-Side Movement
+</div>
+<div class="info-description">
+<p>The farther the pitch moves horizontally toward the arm side relative to similar fastballs, the more run it has.</p>
+</div>
+</div>
+<div class="info-card">
+<div class="info-title">
+Classification
+</div>
+<div class="info-value">
+Four-Seam Only
+</div>
+<div class="info-description">
+<p>Extreme running fastballs are often classified as sinkers, so this group only captures one part of the overall run spectrum.</p>
 </div>
 </div>
 </div>
-<h1 id="the-fastball-movement-landscape">The Fastball Movement Landscape</h1>
+<h2 id="most-horizontal-run">Most Horizontal Run</h2>
 <div class="section-intro">
-<p>The movement landscape makes it easier to identify <strong>outliers</strong>.</p>
-<p>Fastballs near the center have movement profiles closer to the average or comparable pitch. The farther a pitch moves away from the center, the more its shape separates itself from what hitters typically see.</p>
+<p>These were the 15 four-seam fastballs with the most horizontal movement relative to comparable pitches.</p>
 </div>
-<div class="landscape-key">
-<div class="landscape-item">
-<div class="landscape-direction">
-↑ More Ride
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="Run_files/figure-html5/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div class="landscape-description">
-<p>Higher IVB relative to average</p>
+<h1 id="movement-profiles">Movement Profiles</h1>
+<p>Horizontal run can be influenced by several parts of a pitcher’s delivery and pitch profile, especially spin direction and release characteristics.</p>
+<p>Arm slot is one of the easiest examples to see. A lower arm slot often comes with a more horizontal spin direction, which can contribute to additional arm-side movement.</p>
+<p>It is not as simple as saying lower slot automatically equals more run, but the relationship between arm slot, spin axis, and horizontal movement is important.</p>
+<p>Jake Diekman is a good example. His extremely low arm slot gives hitters a completely different look, and his four-seam fastball produced far more horizontal movement than comparable pitches.</p>
+<p>The vertical component matters too.</p>
+<p>Lower IVB combined with a lot of arm-side movement begins to look more like the shape normally associated with a sinker. A four-seam sitting around the mid-teens in IVB while also producing significant run can sometimes fall into what pitchers and coaches describe as a flatter fastball profile rather than a true riding fastball.</p>
+<p>That is part of what makes this group interesting. A lot of these pitches sit near the boundary between a traditional four-seam shape and pitches that could easily be classified differently if the movement became slightly more extreme.</p>
+<h2 id="actual-movement">Actual Movement</h2>
+<div class="section-intro">
+<p>The raw movement chart shows how much variation still exists inside a group defined by run. Some pitches combine arm-side movement with lower IVB, while others still maintain more vertical ride.</p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="Run_files/figure-html5/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<h2 id="movement-relative-to-comparable-fastballs">Movement Relative to Comparable Fastballs</h2>
+<div class="section-intro">
+<p>Moving farther to the right represents more horizontal run relative to comparable four-seamers.</p>
+<p>The vertical axis helps show whether that run is paired with ride, average IVB, or a flatter and more sinker-like vertical shape.</p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="Run_files/figure-html5/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div class="analysis-box">
+<p><strong>Run by itself does not completely describe the pitch.</strong></p>
+<p>A high-run fastball with strong IVB can still look very different from a high-run fastball with lower IVB. The vertical component changes whether the pitch behaves more like a riding four-seamer, a flatter fastball, or begins approaching the movement profile normally associated with a sinker.</p>
+<p>That is why the full movement profile matters more than simply saying a pitch has a lot of horizontal break.</p>
+</div>
+<div class="player-grid">
+<div class="player-card">
+<div class="player-label">
+Extreme Run
+</div>
+<div class="player-name">
+Jake Diekman
+</div>
+<div class="player-text">
+<p>Diekman is one of the clearest examples of how delivery characteristics can contribute to an unusual fastball shape.</p>
+<p>His low arm slot creates a very different release look, and his four-seam produced substantially more horizontal movement than comparable pitches.</p>
 </div>
 </div>
-<div class="landscape-item">
-<div class="landscape-direction">
-← More Cut
+<div class="player-card">
+<div class="player-label">
+Run and Vertical Shape
 </div>
-<div class="landscape-description">
-<p>Less arm-side movement than comparable fastballs</p>
+<div class="player-name">
+The Sinker Boundary
+</div>
+<div class="player-text">
+<p>As horizontal run increases and IVB decreases, the pitch begins to approach the movement profile normally associated with a sinker.</p>
+<p>That makes the Run group especially sensitive to how Baseball Savant classifies each pitch.</p>
 </div>
 </div>
-<div class="landscape-item">
-<div class="landscape-direction">
-More Run →
 </div>
-<div class="landscape-description">
-<p>More arm-side movement than comparable fastballs</p>
+<h1 id="run-and-expected-results">Run and Expected Results</h1>
+<div class="section-intro">
+<p>Comparing horizontal movement relative to comparable fastballs with expected wOBA shows whether additional run consistently translated into better results.</p>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="Run_files/figure-html5/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<h1 id="effectiveness">Effectiveness</h1>
+<p>The results are not especially strong for the high-run four-seam group.</p>
+<p>Only five of the 15 fastballs finished with a positive Run Value per 100, and Richard Rodríguez led the group at only around 1.0 RV/100.</p>
+<p>Compared with the other fastball shapes, this was not the most effective group.</p>
+<p>That does not mean arm-side run itself is bad. Many pitchers who intentionally chase large amounts of arm-side movement are throwing sinkers, and those pitches are completely absent from this sample.</p>
+<p>What it does suggest is that extreme run on a pitch that was still being thrown and classified as a four-seamer was not especially effective within this 2021 group.</p>
+<h2 id="expected-woba">Expected wOBA</h2>
+<p>Lower xwOBA shows which high-run fastballs were best at limiting expected offensive production.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="Run_files/figure-html5/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<h2 id="whiff-rate">Whiff Rate</h2>
+<p>Whiff rate shows whether the additional horizontal movement actually translated into more swings and misses.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="Run_files/figure-html5/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<h2 id="run-value-per-100">Run Value per 100</h2>
+<p>This is where the weakness of the group becomes especially clear. Only a small number of these high-run four-seamers produced positive value on a per-pitch basis.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="Run_files/figure-html5/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<h2 id="hard-hit-rate">Hard-Hit Rate</h2>
+<p>Hard-Hit Rate provides another way to see whether the movement helped prevent hitters from squaring the pitch up when they did make contact.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="Run_files/figure-html5/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<h1 id="individual-results">Individual Results</h1>
+<div class="player-grid">
+<div class="player-card">
+<div class="player-label">
+Lowest Results in the Group
+</div>
+<div class="player-name">
+Jesús Luzardo
+</div>
+<div class="player-text">
+<p>Luzardo had one of the worst four-seam fastballs in the group that season.</p>
+<p>He has developed into a much better pitcher since then, but 2021 was a terrible season for him and he was still far from the pitcher he would eventually become.</p>
+<p>His appearance near the bottom of this group is a good reminder that a pitcher should be evaluated based on the pitch and season in front of you rather than his reputation or what he becomes later.</p>
+</div>
+</div>
+<div class="player-card">
+<div class="player-label">
+Established Pitcher, Down Season
+</div>
+<div class="player-name">
+Aaron Nola
+</div>
+<div class="player-text">
+<p>Nola has been one of the better starting pitchers of the last decade, but 2021 was a poor season by his standards.</p>
+<p>His four-seam was slightly positive by RV/100, but it was nowhere near a dominant pitch.</p>
+<p>A recognizable name does not automatically mean every pitch in every season was effective.</p>
+</div>
+</div>
+</div>
+<div class="analysis-box">
+<p>Overall, high horizontal run was the least convincing four-seam shape in this data.</p>
+<p>The group did not consistently miss bats at an elite level, did not dominate expected results, and produced relatively weak Run Value per 100 numbers.</p>
+<p>I would not use that as evidence that running fastballs are ineffective.</p>
+<p>If anything, it may suggest that when a pitcher is trying to maximize arm-side movement, the better version of that pitch often becomes a <strong>sinker rather than a four-seamer</strong>.</p>
+<p>The four-seam classification itself is an important part of the result.</p>
+</div>
+<h1 id="run-group-vs-qualified-average">Run Group vs Qualified Average</h1>
+<div class="comparison-intro">
+<p>The group average makes it easier to compare the 15 highest-run four-seam fastballs with the qualified four-seam population as a whole.</p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<caption><span id="tab:unnamed-chunk-9">Table 1: </span>Top 15 Run Fastballs vs Qualified Four-Seam Average</caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Group</th>
+<th style="text-align: left;">xwOBA</th>
+<th style="text-align: left;">Whiff %</th>
+<th style="text-align: right;">RV/100</th>
+<th style="text-align: left;">Hard-Hit %</th>
+<th style="text-align: left;">xSLG</th>
+<th style="text-align: left;">K %</th>
+<th style="text-align: left;">Put-Away %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Qualified Four-Seam Average</td>
+<td style="text-align: left;">0.342</td>
+<td style="text-align: left;">22.5%</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: left;">44.6%</td>
+<td style="text-align: left;">0.460</td>
+<td style="text-align: left;">22.9%</td>
+<td style="text-align: left;">19.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Top 15 Run Fastballs</td>
+<td style="text-align: left;">0.360</td>
+<td style="text-align: left;">20.6%</td>
+<td style="text-align: right;">-0.55</td>
+<td style="text-align: left;">45.5%</td>
+<td style="text-align: left;">0.495</td>
+<td style="text-align: left;">20.1%</td>
+<td style="text-align: left;">17%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="complete-profiles">Complete Profiles</h1>
+<div class="takeaway-box">
+<div class="takeaway-title">
+Run in Context
+</div>
+<div class="takeaway-text">
+<p>Horizontal movement can create a unique fastball shape, but the Run group shows that unusual movement alone does not guarantee effectiveness.</p>
+<p>The most important context is that these are still four-seam fastballs. Many of the pitches that maximize arm-side movement are classified as sinkers and therefore fall outside this group entirely.</p>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="index_files/figure-html5/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
-</div>
-<div class="section-intro">
-<p>Moving <strong>higher</strong> on the graph represents more induced vertical break and therefore more ride.</p>
-<p>Moving <strong>right</strong> represents more horizontal run, while moving <strong>left</strong> represents a more cutting four-seam shape.</p>
-<p>The pitches farthest from the main cluster are especially interesting. Those outliers create movement profiles that differ more significantly from the fastballs hitters regularly see.</p>
-<p>A fastball can also be an outlier in more than one direction. A pitch can combine significant ride with large amounts of run, or pair above-average ride with a cutting horizontal profile.</p>
-</div>
-<h1 id="measuring-fastball-effectiveness">Measuring Fastball Effectiveness</h1>
-<div class="method-box">
-<p>I chose not to rely heavily on traditional results such as <strong>ERA, home runs allowed, or batting average against</strong> when evaluating individual fastballs.</p>
-<p>Those statistics tell us what happened, but they can also be influenced by factors outside the quality of the pitch itself — defense, ballpark, sequencing, batted-ball placement, and variance after contact.</p>
-<p><br><br></p>
-<p>I am usually not a fan of relying too heavily on expected statistics. For individual pitch evaluation, however, I think they are especially useful because they remove some of those external factors and focus more directly on the quality of the interaction between the hitter and the pitch.</p>
-<p>Metrics such as <strong>xwOBA</strong> and <strong>xSLG</strong> provide context for the quality of contact a fastball allowed rather than relying only on the final result.</p>
-<p><strong>Whiff Rate</strong> and <strong>Hard-Hit Rate</strong> are also better suited for evaluating individual pitches because they are less dependent on luck after the ball leaves the bat. Whiff Rate measures a pitch’s ability to completely miss the bat, while Hard-Hit Rate measures how consistently hitters were able to square the pitch up when they made contact.</p>
-</div>
-<div class="effectiveness-grid">
-<div class="effect-card">
-<div class="effect-name">
-Run Value / 100
-</div>
-<div class="effect-description">
-<p>Measures the value produced by a pitch and standardizes it over 100 pitches, allowing fastballs with different workloads to be compared on the same scale.</p>
-</div>
-<div class="direction-good">
-<p>Higher = Better</p>
-</div>
-</div>
-<div class="effect-card">
-<div class="effect-name">
-xwOBA
-</div>
-<div class="effect-description">
-<p>Expected weighted offensive production allowed. Different offensive outcomes are weighted by their value rather than treating every hit the same.</p>
-</div>
-<div class="direction-good">
-<p>Lower = Better</p>
-</div>
-</div>
-<div class="effect-card">
-<div class="effect-name">
-Whiff %
-</div>
-<div class="effect-description">
-<p>The percentage of swings against the fastball that result in no contact.</p>
-</div>
-<div class="direction-good">
-<p>Higher = Better</p>
-</div>
-</div>
-<div class="effect-card">
-<div class="effect-name">
-xSLG
-</div>
-<div class="effect-description">
-<p>Expected slugging percentage allowed. It provides a measure of the expected damage produced when hitters put the pitch in play.</p>
-</div>
-<div class="direction-good">
-<p>Lower = Better</p>
-</div>
-</div>
-<div class="effect-card">
-<div class="effect-name">
-Hard-Hit %
-</div>
-<div class="effect-description">
-<p>The percentage of batted balls against the pitch hit at an exit velocity of at least 95 mph.</p>
-</div>
-<div class="direction-good">
-<p>Lower = Better</p>
-</div>
-</div>
-<div class="effect-card">
-<div class="effect-name">
-Usage %
-</div>
-<div class="effect-description">
-<p>The percentage of a pitcher’s total pitches that were four-seam fastballs. Usage provides context for how heavily a pitcher relied on the pitch.</p>
-</div>
-<div class="direction-good">
-<p>Context</p>
-</div>
-</div>
-</div>
-<h1 id="additional-results">Additional Results</h1>
-<div class="metric-grid">
-<div class="metric-card">
-<div class="metric-name">
-wOBA
-</div>
-<div class="metric-description">
-<p>Actual weighted offensive production allowed. Comparing wOBA with xwOBA shows how actual results compared with expected results.</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-BA / xBA
-</div>
-<div class="metric-description">
-<p>Actual batting average allowed compared with the expected batting average based on the quality of the hitter’s results.</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-SLG / xSLG
-</div>
-<div class="metric-description">
-<p>Actual slugging percentage allowed compared with expected slugging percentage.</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-K %
-</div>
-<div class="metric-description">
-<p>Strikeout rate associated with plate appearances involving the fastball.</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-Put-Away %
-</div>
-<div class="metric-description">
-<p>How often the fastball records a strikeout when thrown with two strikes.</p>
-</div>
-</div>
-<div class="metric-card">
-<div class="metric-name">
-Total Run Value
-</div>
-<div class="metric-description">
-<p>The total value accumulated by the fastball over the season. Unlike RV/100, workload has a major influence on this number.</p>
-</div>
-</div>
-</div>
-<h1 id="run-value-per-100">Run Value per 100</h1>
-<div class="ranking-box">
-<p>I ranked the <strong>10 most valuable four-seam fastballs of 2021</strong> using Run Value per 100 pitches.</p>
-<p>Total Run Value naturally favors pitchers with larger workloads because they have more opportunities to accumulate value. Using Run Value per 100 removes that advantage and focuses on the value created by the fastball each time it was thrown.</p>
-<p>That can work against a pitcher who threw more innings and accumulated significantly more total value, but that is intentional. The ranking is focused on <strong>the value of the fastball itself on a per-pitch basis</strong>, rather than the total value accumulated over an entire season.</p>
-<p>The result is a ranking of the pitches that produced the most value relative to how often they were actually thrown.</p>
+<table style="width:100%;">
+<caption><span id="tab:unnamed-chunk-10">Table 2: </span>Top 15 Four-Seam Fastballs by Horizontal Break vs Comparable</caption>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 16%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 9%" />
+<col style="width: 4%" />
+<col style="width: 14%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Rank</th>
+<th style="text-align: left;">Pitcher</th>
+<th style="text-align: left;">Hand</th>
+<th style="text-align: right;">Velo</th>
+<th style="text-align: right;">IVB</th>
+<th style="text-align: right;">IVB vs Avg</th>
+<th style="text-align: right;">HB</th>
+<th style="text-align: right;">HB vs Comparable</th>
+<th style="text-align: left;">xwOBA</th>
+<th style="text-align: left;">Whiff %</th>
+<th style="text-align: right;">RV/100</th>
+<th style="text-align: left;">Hard-Hit %</th>
+<th style="text-align: left;">xSLG</th>
+<th style="text-align: left;">Usage %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Heuer, Codi</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">95.9</td>
+<td style="text-align: right;">13.3</td>
+<td style="text-align: right;">-2.9</td>
+<td style="text-align: right;">14.4</td>
+<td style="text-align: right;">6.9</td>
+<td style="text-align: left;">0.386</td>
+<td style="text-align: left;">13.4%</td>
+<td style="text-align: right;">-1.6</td>
+<td style="text-align: left;">45.3%</td>
+<td style="text-align: left;">0.524</td>
+<td style="text-align: left;">56.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Heaney, Andrew</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">92.0</td>
+<td style="text-align: right;">15.2</td>
+<td style="text-align: right;">-0.9</td>
+<td style="text-align: right;">15.3</td>
+<td style="text-align: right;">6.7</td>
+<td style="text-align: left;">0.333</td>
+<td style="text-align: left;">27.8%</td>
+<td style="text-align: right;">-0.6</td>
+<td style="text-align: left;">45%</td>
+<td style="text-align: left;">0.463</td>
+<td style="text-align: left;">59.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Diekman, Jake</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">95.4</td>
+<td style="text-align: right;">13.4</td>
+<td style="text-align: right;">-2.7</td>
+<td style="text-align: right;">14.3</td>
+<td style="text-align: right;">6.6</td>
+<td style="text-align: left;">0.344</td>
+<td style="text-align: left;">31.7%</td>
+<td style="text-align: right;">-0.1</td>
+<td style="text-align: left;">45.7%</td>
+<td style="text-align: left;">0.442</td>
+<td style="text-align: left;">58.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Rodríguez, Richard</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">93.1</td>
+<td style="text-align: right;">15.2</td>
+<td style="text-align: right;">-1.0</td>
+<td style="text-align: right;">13.4</td>
+<td style="text-align: right;">6.4</td>
+<td style="text-align: left;">0.333</td>
+<td style="text-align: left;">17.9%</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: left;">45%</td>
+<td style="text-align: left;">0.509</td>
+<td style="text-align: left;">86.1%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Moore, Matt</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">92.4</td>
+<td style="text-align: right;">15.3</td>
+<td style="text-align: right;">-0.8</td>
+<td style="text-align: right;">12.8</td>
+<td style="text-align: right;">6.1</td>
+<td style="text-align: left;">0.361</td>
+<td style="text-align: left;">18.5%</td>
+<td style="text-align: right;">-0.7</td>
+<td style="text-align: left;">42.1%</td>
+<td style="text-align: left;">0.480</td>
+<td style="text-align: left;">56.4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Luzardo, Jesús</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">95.7</td>
+<td style="text-align: right;">15.2</td>
+<td style="text-align: right;">-0.9</td>
+<td style="text-align: right;">13.3</td>
+<td style="text-align: right;">5.7</td>
+<td style="text-align: left;">0.437</td>
+<td style="text-align: left;">18.5%</td>
+<td style="text-align: right;">-3.1</td>
+<td style="text-align: left;">50.5%</td>
+<td style="text-align: left;">0.632</td>
+<td style="text-align: left;">33.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Harvey, Matt</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">93.4</td>
+<td style="text-align: right;">14.5</td>
+<td style="text-align: right;">-1.7</td>
+<td style="text-align: right;">12.3</td>
+<td style="text-align: right;">5.4</td>
+<td style="text-align: left;">0.418</td>
+<td style="text-align: left;">15.6%</td>
+<td style="text-align: right;">-1.9</td>
+<td style="text-align: left;">50.7%</td>
+<td style="text-align: left;">0.618</td>
+<td style="text-align: left;">34.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Nola, Aaron</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">92.9</td>
+<td style="text-align: right;">14.2</td>
+<td style="text-align: right;">-2.0</td>
+<td style="text-align: right;">13.3</td>
+<td style="text-align: right;">5.1</td>
+<td style="text-align: left;">0.361</td>
+<td style="text-align: left;">22.4%</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">45.1%</td>
+<td style="text-align: left;">0.531</td>
+<td style="text-align: left;">37.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Ryu, Hyun Jin</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">89.8</td>
+<td style="text-align: right;">12.8</td>
+<td style="text-align: right;">-3.3</td>
+<td style="text-align: right;">11.6</td>
+<td style="text-align: right;">4.9</td>
+<td style="text-align: left;">0.365</td>
+<td style="text-align: left;">18.6%</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">57.2%</td>
+<td style="text-align: left;">0.523</td>
+<td style="text-align: left;">35.2%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Morton, Charlie</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">95.5</td>
+<td style="text-align: right;">12.5</td>
+<td style="text-align: right;">-3.7</td>
+<td style="text-align: right;">13.1</td>
+<td style="text-align: right;">4.8</td>
+<td style="text-align: left;">0.314</td>
+<td style="text-align: left;">23.6%</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: left;">40.4%</td>
+<td style="text-align: left;">0.400</td>
+<td style="text-align: left;">36.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Gray, Jon</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">94.9</td>
+<td style="text-align: right;">11.0</td>
+<td style="text-align: right;">-5.2</td>
+<td style="text-align: right;">12.9</td>
+<td style="text-align: right;">4.7</td>
+<td style="text-align: left;">0.362</td>
+<td style="text-align: left;">17.3%</td>
+<td style="text-align: right;">-0.6</td>
+<td style="text-align: left;">44.3%</td>
+<td style="text-align: left;">0.459</td>
+<td style="text-align: left;">46.6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Smith, Caleb</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">91.4</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">11.5</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: left;">0.360</td>
+<td style="text-align: left;">22%</td>
+<td style="text-align: right;">-0.5</td>
+<td style="text-align: left;">36.5%</td>
+<td style="text-align: left;">0.451</td>
+<td style="text-align: left;">48.1%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Weathers, Ryan</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">93.9</td>
+<td style="text-align: right;">14.1</td>
+<td style="text-align: right;">-2.0</td>
+<td style="text-align: right;">12.3</td>
+<td style="text-align: right;">4.4</td>
+<td style="text-align: left;">0.389</td>
+<td style="text-align: left;">16.5%</td>
+<td style="text-align: right;">-1.3</td>
+<td style="text-align: left;">49.2%</td>
+<td style="text-align: left;">0.555</td>
+<td style="text-align: left;">57.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">Mahle, Tyler</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">94.0</td>
+<td style="text-align: right;">17.1</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">12.1</td>
+<td style="text-align: right;">4.3</td>
+<td style="text-align: left;">0.306</td>
+<td style="text-align: left;">27%</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">41%</td>
+<td style="text-align: left;">0.367</td>
+<td style="text-align: left;">53.1%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">Morgan, Eli</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">90.4</td>
+<td style="text-align: right;">17.3</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">11.4</td>
+<td style="text-align: right;">4.3</td>
+<td style="text-align: left;">0.334</td>
+<td style="text-align: left;">18.5%</td>
+<td style="text-align: right;">-0.2</td>
+<td style="text-align: left;">44.4%</td>
+<td style="text-align: left;">0.468</td>
+<td style="text-align: left;">48.7%</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

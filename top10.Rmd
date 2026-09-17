@@ -1,0 +1,966 @@
+---
+title: "Top 10 Fastballs"
+description: |
+  The 10 most effective four-seam fastballs of 2021 by Run Value per 100 pitches.
+author:
+  - name: Mikey Myro
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    css: fastball_style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  out.width = "100%"
+)
+
+source("fastball_setup.R")
+
+top10_fastballs <- league_fastballs %>%
+  filter(
+    !is.na(run_value_per_100),
+    !is.na(est_woba)
+  ) %>%
+  arrange(desc(run_value_per_100)) %>%
+  slice_head(n = 10) %>%
+  mutate(
+    rank = row_number()
+  )
+
+league_avg_velocity <- weighted.mean(
+  league_fastballs$avg_speed,
+  league_fastballs$pitches_thrown,
+  na.rm = TRUE
+)
+
+top10_fastballs <- top10_fastballs %>%
+  mutate(
+    velo_vs_avg = avg_speed - league_avg_velocity
+  )
+
+top10_color <- "#C94C2E"
+```
+
+<style>
+
+.top10-hero {
+  background: linear-gradient(135deg, #9E2F18, #C94C2E);
+  border-radius: 14px;
+  padding: 28px 30px;
+  color: white;
+  margin: 20px 0 35px 0;
+}
+
+.top10-hero-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.top10-hero-text {
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 850px;
+}
+
+.ranking-explanation {
+  background: #f5f5f5;
+  border-left: 5px solid #C94C2E;
+  padding: 16px 20px;
+  margin: 22px 0 30px 0;
+  line-height: 1.6;
+}
+
+.season-context {
+  background: #fafafa;
+  border: 1px solid #e2e2e2;
+  border-left: 5px solid #C94C2E;
+  border-radius: 9px;
+  padding: 17px 20px;
+  margin: 12px 0 28px 0;
+  line-height: 1.65;
+}
+
+.season-context-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #777777;
+  margin-bottom: 7px;
+}
+
+.player-photo-container {
+  width: 100%;
+  height: 360px;
+  margin: 15px 0 25px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f2f2f2;
+}
+
+.player-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.spotlight-note {
+  background: #fafafa;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 15px 18px;
+  margin: 15px 0 25px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.spotlight-table {
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 28px;
+  border-collapse: collapse;
+}
+
+.spotlight-table th {
+  background: #C94C2E;
+  color: white;
+  padding: 9px 12px;
+}
+
+.spotlight-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.spotlight-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.stat-explanation {
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.velocity-compare {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 14px 0 30px 0;
+}
+
+.velocity-stat {
+  background: #fafafa;
+  border: 1px solid #e3e3e3;
+  border-radius: 9px;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.velocity-label {
+  color: #777777;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 5px;
+}
+
+.velocity-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.final-ranking-intro {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 700px) {
+
+  .velocity-compare {
+    grid-template-columns: 1fr;
+  }
+
+  .player-photo-container {
+    height: 260px;
+  }
+
+}
+
+</style>
+
+<div class="top10-hero">
+
+<div class="top10-hero-title">
+Top 10 Four-Seam Fastballs of 2021
+</div>
+
+<div class="top10-hero-text">
+
+There is no single way to build an elite fastball. This ranking starts with the result — <strong>Run Value per 100 pitches</strong> — and then looks at the velocity, movement, results, and surrounding arsenal that helped make each pitch effective.
+
+</div>
+
+</div>
+
+# The Ranking
+
+<div class="ranking-explanation">
+
+<strong>Ranking Method</strong><br><br>
+
+The list uses <strong>Run Value per 100 four-seam fastballs</strong> among pitchers who threw at least 500 four-seamers in 2021.
+
+Total Run Value naturally rewards workload because a pitcher who throws a pitch more often has more opportunities to accumulate value. Run Value per 100 puts every pitcher on the same scale and focuses more directly on how valuable the fastball was each time it was thrown.
+
+The countdown starts at No. 10 and works toward the most valuable four-seam fastball in the qualified group.
+
+</div>
+
+# Individual Fastball Spotlights
+
+Each fastball is broken down through the same areas:
+
+**Velocity → Pitch Shape → Relative Movement → Effectiveness**
+
+The numbers show what the pitch did. The 2021 context helps explain why it worked.
+
+```{r player-spotlights, results='asis', fig.width=8.5, fig.height=5.5}
+
+for (r in 10:1) {
+
+  pitcher <- top10_fastballs %>%
+    filter(rank == r)
+
+  player_color <- case_when(
+    r == 1 ~ "#C9A227",
+    r == 2 ~ "#909090",
+    r == 3 ~ "#B87333",
+    TRUE ~ "#C94C2E"
+  )
+
+  player_image <- case_when(
+    str_detect(pitcher$player, regex("Feyereisen", ignore_case = TRUE)) ~
+      "images/feyereisen.jpeg",
+
+    str_detect(pitcher$player, regex("Glasnow", ignore_case = TRUE)) ~
+      "images/glasnow.jpg",
+
+    str_detect(pitcher$player, regex("Matzek", ignore_case = TRUE)) ~
+      "images/matzek.webp",
+
+    str_detect(pitcher$player, regex("Peralta", ignore_case = TRUE)) ~
+      "images/peralta.jpg",
+
+    str_detect(pitcher$player, regex("Lynn", ignore_case = TRUE)) ~
+      "images/lynn.webp",
+
+    str_detect(pitcher$player, regex("Richards", ignore_case = TRUE)) ~
+      "images/richards.png",
+
+    str_detect(pitcher$player, regex("Hendriks", ignore_case = TRUE)) ~
+      "images/hendriks.webp",
+
+    str_detect(pitcher$player, regex("Rasmussen", ignore_case = TRUE)) ~
+      "images/rasmussen.webp",
+
+    str_detect(pitcher$player, regex("Rodon|Rodón", ignore_case = TRUE)) ~
+      "images/rodon.jpg",
+
+    str_detect(pitcher$player, regex("deGrom", ignore_case = TRUE)) ~
+      "images/degrom.jpg",
+
+    TRUE ~ NA_character_
+  )
+
+  season_context <- case_when(
+
+    str_detect(pitcher$player, regex("Feyereisen", ignore_case = TRUE)) ~
+      paste0(
+        "Feyereisen is probably the clearest example on this list of ",
+        "<strong>shape overpowering ordinary velocity</strong>. ",
+        "He finished 2021 with a 2.73 ERA, but what made the fastball stand out was the amount of ride and spin he created without needing upper-90s velocity. ",
+        "It is a perfect example of a fastball playing much harder than the radar gun suggests."
+      ),
+
+    str_detect(pitcher$player, regex("Glasnow", ignore_case = TRUE)) ~
+      paste0(
+        "Glasnow was pitching like an ace before an elbow injury ended his season, finishing with a ",
+        "<strong>2.66 ERA and 123 strikeouts in 88 innings</strong>. ",
+        "His fastball already had premium velocity, but the straighter cut-ride shape made it even more unusual. ",
+        "Add a hard slider and a huge curveball and hitters had to cover completely different shapes coming out of the same delivery."
+      ),
+
+    str_detect(pitcher$player, regex("Matzek", ignore_case = TRUE)) ~
+      paste0(
+        "Matzek leaned on his four-seamer as heavily as almost anyone, throwing it more than ",
+        "<strong>70% of the time</strong> while posting a 2.57 ERA. ",
+        "The fastball combined velocity, ride, and relatively little horizontal run, while his slider gave hitters a completely different vertical look. ",
+        "He was able to tell hitters the fastball was coming and still beat them with it."
+      ),
+
+    str_detect(pitcher$player, regex("Peralta", ignore_case = TRUE)) ~
+      paste0(
+        "Peralta is one of my favorite examples of a fastball outperforming what the radar gun would predict. ",
+        "He had a breakout season with a <strong>2.81 ERA and 195 strikeouts</strong> despite a four-seamer that sat around ordinary Major League velocity. ",
+        "A big part of the story was his evolving arsenal: he threw fewer fastballs and added far more sliders, making it much harder for hitters to simply sit on the heater."
+      ),
+
+    str_detect(pitcher$player, regex("Lynn", ignore_case = TRUE)) ~
+      paste0(
+        "Lynn finished third in the AL Cy Young voting with a <strong>2.69 ERA</strong>, but his success was never about having the hardest fastball. ",
+        "He attacked hitters with a family of hard pitches — four-seamers, sinkers, and cutters — that came from similar looks and moved in different directions. ",
+        "For me, Lynn is a great example of how the rest of an arsenal can make a fastball better."
+      ),
+
+    str_detect(
+      pitcher$player,
+      regex("Trevor Richards|Richards, Trevor", ignore_case = TRUE)
+    ) ~
+      paste0(
+        "Richards is interesting because the raw fastball results were better than some of the expected numbers. ",
+        "Hitters batted only <strong>.159 against the four-seamer</strong>, but its expected results and hard-hit rate were less dominant. ",
+        "His changeup is a huge part of the story: it produced a 50% whiff rate, giving hitters another pitch they had to respect and helping the fastball play beyond its raw characteristics."
+      ),
+
+    str_detect(pitcher$player, regex("Hendriks", ignore_case = TRUE)) ~
+      paste0(
+        "Hendriks had one of the most dominant relief seasons in baseball: ",
+        "<strong>2.54 ERA, 0.73 WHIP, 113 strikeouts, and only seven walks</strong> in 71 innings. ",
+        "His fastball had elite velocity, but the command might be just as important. ",
+        "Hitters could not wait for him to miss because he almost never did, forcing them to attack a high-90s fastball in competitive locations."
+      ),
+
+    str_detect(pitcher$player, regex("Rasmussen", ignore_case = TRUE)) ~
+      paste0(
+        "Rasmussen's fastball was built more around <strong>premium power stuff</strong> than an extreme movement profile. ",
+        "He finished the season with a 2.84 ERA while Tampa Bay gradually moved him from relief into the rotation. ",
+        "The combination of velocity, spin, and extension gave the fastball enough quality to remain effective even as his role changed."
+      ),
+
+    str_detect(pitcher$player, regex("Rodon|Rodón", ignore_case = TRUE)) ~
+      paste0(
+        "Rodón's 2021 season was one of the biggest pitching breakouts of the year. ",
+        "He finished with a <strong>2.37 ERA and 185 strikeouts</strong>, and one of the biggest changes was a roughly 2.6 mph jump in four-seam velocity from the previous season. ",
+        "The important part is that he added that velocity without losing the carry that allowed the pitch to stay above barrels."
+      ),
+
+    str_detect(pitcher$player, regex("deGrom", ignore_case = TRUE)) ~
+      paste0(
+        "deGrom was operating in a category that barely existed for starting pitchers at the time. ",
+        "He posted a <strong>1.08 ERA, 0.55 WHIP, and 146 strikeouts in only 92 innings</strong> while averaging around 99 mph with the four-seamer. ",
+        "Then hitters had to account for a slider around 91–92 mph coming out of the same delivery. ",
+        "The only thing that kept the season from becoming even more historic was health."
+      ),
+
+    TRUE ~
+      paste0(
+        "This fastball reached the top 10 through its own combination of pitch shape and results. ",
+        "The movement, velocity, and effectiveness numbers below show where its advantage came from."
+      )
+  )
+
+  cat(
+    "\n\n# ",
+    r,
+    ": ",
+    pitcher$player,
+    " — RV/100 = ",
+    sprintf(
+      "%.1f",
+      pitcher$run_value_per_100
+    ),
+    "\n\n",
+    sep = ""
+  )
+
+  if (!is.na(player_image)) {
+
+    cat(
+      "<div class='player-photo-container'>",
+      "<img class='player-photo' src='",
+      player_image,
+      "' alt='",
+      pitcher$player,
+      "'>",
+      "</div>\n\n",
+      sep = ""
+    )
+
+  }
+
+  cat(
+    "<div class='season-context' style='border-left-color:",
+    player_color,
+    ";'>",
+    "<div class='season-context-title'>2021 Context</div>",
+    season_context,
+    "</div>\n\n",
+    sep = ""
+  )
+
+  cat(
+    "## Velocity\n\n"
+  )
+
+  cat(
+    "<div class='velocity-compare'>",
+
+    "<div class='velocity-stat'>",
+    "<div class='velocity-label'>",
+    pitcher$player,
+    "</div>",
+    "<div class='velocity-value' style='color:",
+    player_color,
+    ";'>",
+    sprintf(
+      "%.1f mph",
+      pitcher$avg_speed
+    ),
+    "</div>",
+    "</div>",
+
+    "<div class='velocity-stat'>",
+    "<div class='velocity-label'>Qualified Average</div>",
+    "<div class='velocity-value'>",
+    sprintf(
+      "%.1f mph",
+      league_avg_velocity
+    ),
+    "</div>",
+    "</div>",
+
+    "<div class='velocity-stat'>",
+    "<div class='velocity-label'>Difference</div>",
+    "<div class='velocity-value' style='color:",
+    player_color,
+    ";'>",
+    sprintf(
+      "%+.1f mph",
+      pitcher$velo_vs_avg
+    ),
+    "</div>",
+    "</div>",
+
+    "</div>\n\n",
+    sep = ""
+  )
+
+  cat(
+    "## Actual Movement Profile\n\n"
+  )
+
+  cat(
+    "<div class='stat-explanation'>",
+    "This chart shows the pitch's actual horizontal break and induced vertical break. ",
+    "Gray points represent the other qualified four-seam fastballs.",
+    "</div>\n\n",
+    sep = ""
+  )
+
+  actual_movement <- ggplot(
+    league_fastballs,
+    aes(
+      x = pitcher_break_x,
+      y = pitcher_break_z_induced
+    )
+  ) +
+    geom_point(
+      color = "#D4D4D4",
+      size = 2,
+      alpha = 0.65
+    ) +
+    geom_point(
+      data = pitcher,
+      color = player_color,
+      size = 5
+    ) +
+    geom_text_repel(
+      data = pitcher,
+      aes(
+        label = player
+      ),
+      color = player_color,
+      fontface = "bold",
+      size = 4,
+      box.padding = 0.6,
+      point.padding = 0.5
+    ) +
+    annotate(
+      "text",
+      x = Inf,
+      y = Inf,
+      hjust = 1.1,
+      vjust = 1.5,
+      label = paste0(
+        "IVB: ",
+        sprintf(
+          "%.1f in",
+          pitcher$pitcher_break_z_induced
+        ),
+        "\nHB: ",
+        sprintf(
+          "%.1f in",
+          pitcher$pitcher_break_x
+        )
+      ),
+      size = 3.5,
+      color = "#444444"
+    ) +
+    labs(
+      title = paste0(
+        pitcher$player,
+        "'s Four-Seam Movement"
+      ),
+      subtitle =
+        "Raw horizontal break and induced vertical break",
+      x =
+        "Horizontal Break (inches)",
+      y =
+        "Induced Vertical Break (inches)"
+    ) +
+    fastball_theme()
+
+  print(
+    actual_movement
+  )
+
+  cat(
+    "\n\n## Movement Relative to Average\n\n"
+  )
+
+  cat(
+    "<div class='stat-explanation'>",
+    "The center of the chart represents average or comparable movement. ",
+    "The highlighted point shows how this fastball separates itself from the rest of the qualified group.",
+    "</div>\n\n",
+    sep = ""
+  )
+
+  relative_movement <- ggplot(
+    league_fastballs,
+    aes(
+      x = hb_vs_comparable,
+      y = ivb_vs_avg
+    )
+  ) +
+    geom_vline(
+      xintercept = 0,
+      linetype = "dashed",
+      color = "#999999",
+      linewidth = 0.7
+    ) +
+    geom_hline(
+      yintercept = 0,
+      linetype = "dashed",
+      color = "#999999",
+      linewidth = 0.7
+    ) +
+    geom_point(
+      color = "#D4D4D4",
+      size = 2,
+      alpha = 0.65
+    ) +
+    geom_point(
+      data = pitcher,
+      color = player_color,
+      size = 5
+    ) +
+    geom_text_repel(
+      data = pitcher,
+      aes(
+        label = player
+      ),
+      color = player_color,
+      fontface = "bold",
+      size = 4,
+      box.padding = 0.6,
+      point.padding = 0.5
+    ) +
+    annotate(
+      "text",
+      x = Inf,
+      y = Inf,
+      hjust = 1.1,
+      vjust = 1.5,
+      label = paste0(
+        "IVB vs Avg: ",
+        sprintf(
+          "%+.1f in",
+          pitcher$ivb_vs_avg
+        ),
+        "\nHB vs Comparable: ",
+        sprintf(
+          "%+.1f in",
+          pitcher$hb_vs_comparable
+        )
+      ),
+      size = 3.5,
+      color = "#444444"
+    ) +
+    labs(
+      title = paste0(
+        pitcher$player,
+        "'s Movement Relative to Other Fastballs"
+      ),
+      subtitle =
+        "Zero represents average or comparable movement",
+      x =
+        "Horizontal Break vs Comparable (inches)",
+      y =
+        "IVB vs Average (inches)"
+    ) +
+    fastball_theme()
+
+  print(
+    relative_movement
+  )
+
+  cat(
+    "\n\n## Effectiveness\n\n"
+  )
+
+  cat(
+    "<div class='stat-explanation'>",
+    "RV/100 shows the overall value of the fastball on a common scale, while the other metrics show how that value was created.",
+    "</div>\n\n",
+    sep = ""
+  )
+
+  performance_table <- tibble(
+    Metric = c(
+      "Run Value / 100",
+      "Total Run Value",
+      "xwOBA",
+      "Whiff Rate",
+      "Hard-Hit Rate",
+      "K Rate",
+      "Put-Away Rate",
+      "Usage"
+    ),
+    Value = c(
+      sprintf(
+        "%.1f",
+        pitcher$run_value_per_100
+      ),
+      sprintf(
+        "%.0f",
+        pitcher$run_value
+      ),
+      sprintf(
+        "%.3f",
+        pitcher$est_woba
+      ),
+      sprintf(
+        "%.1f%%",
+        pitcher$whiff_percent
+      ),
+      sprintf(
+        "%.1f%%",
+        pitcher$hard_hit_percent
+      ),
+      sprintf(
+        "%.1f%%",
+        pitcher$k_percent
+      ),
+      sprintf(
+        "%.1f%%",
+        pitcher$put_away
+      ),
+      sprintf(
+        "%.1f%%",
+        pitcher$pitch_usage
+      )
+    )
+  )
+
+  cat(
+    as.character(
+      knitr::kable(
+        performance_table,
+        format = "html",
+        escape = FALSE,
+        table.attr =
+          'class="spotlight-table"',
+        col.names = c(
+          "Effectiveness Metric",
+          "Value"
+        )
+      )
+    ),
+    "\n\n"
+  )
+
+  cat(
+    "## Contact Results\n\n"
+  )
+
+  contact_table <- tibble(
+    Metric = c(
+      "Batting Average",
+      "Expected Batting Average",
+      "Slugging",
+      "Expected Slugging",
+      "wOBA",
+      "Expected wOBA"
+    ),
+    Value = c(
+      sprintf(
+        "%.3f",
+        pitcher$ba
+      ),
+      sprintf(
+        "%.3f",
+        pitcher$est_ba
+      ),
+      sprintf(
+        "%.3f",
+        pitcher$slg
+      ),
+      sprintf(
+        "%.3f",
+        pitcher$est_slg
+      ),
+      sprintf(
+        "%.3f",
+        pitcher$woba
+      ),
+      sprintf(
+        "%.3f",
+        pitcher$est_woba
+      )
+    )
+  )
+
+  cat(
+    as.character(
+      knitr::kable(
+        contact_table,
+        format = "html",
+        escape = FALSE,
+        table.attr =
+          'class="spotlight-table"',
+        col.names = c(
+          "Contact Metric",
+          "Value"
+        )
+      )
+    ),
+    "\n\n"
+  )
+
+  cat(
+    "## Pitch Profile\n\n"
+  )
+
+  pitch_table <- tibble(
+    Metric = c(
+      "Average Velocity",
+      "Velocity vs Average",
+      "Raw IVB",
+      "IVB vs Average",
+      "Raw Horizontal Break",
+      "HB vs Comparable",
+      "Four-Seam Usage",
+      "Four-Seam Pitches"
+    ),
+    Value = c(
+      sprintf(
+        "%.1f mph",
+        pitcher$avg_speed
+      ),
+      sprintf(
+        "%+.1f mph",
+        pitcher$velo_vs_avg
+      ),
+      sprintf(
+        "%.1f in",
+        pitcher$pitcher_break_z_induced
+      ),
+      sprintf(
+        "%+.1f in",
+        pitcher$ivb_vs_avg
+      ),
+      sprintf(
+        "%.1f in",
+        pitcher$pitcher_break_x
+      ),
+      sprintf(
+        "%+.1f in",
+        pitcher$hb_vs_comparable
+      ),
+      sprintf(
+        "%.1f%%",
+        pitcher$pitch_usage
+      ),
+      scales::comma(
+        pitcher$pitches
+      )
+    )
+  )
+
+  cat(
+    as.character(
+      knitr::kable(
+        pitch_table,
+        format = "html",
+        escape = FALSE,
+        table.attr =
+          'class="spotlight-table"',
+        col.names = c(
+          "Pitch Metric",
+          "Value"
+        )
+      )
+    ),
+    "\n\n"
+  )
+
+  cat(
+    "<div class='spotlight-note'>",
+    "<strong>Fastball Summary:</strong> ",
+    pitcher$player,
+    "'s four-seamer produced a ",
+    sprintf(
+      "%.3f",
+      pitcher$est_woba
+    ),
+    " xwOBA with a ",
+    sprintf(
+      "%.1f%%",
+      pitcher$whiff_percent
+    ),
+    " whiff rate and a ",
+    sprintf(
+      "%.1f%%",
+      pitcher$hard_hit_percent
+    ),
+    " hard-hit rate while being used ",
+    sprintf(
+      "%.1f%%",
+      pitcher$pitch_usage
+    ),
+    " of the time.",
+    "</div>\n\n",
+    sep = ""
+  )
+
+  if (r != 1) {
+
+    cat(
+      "\n\n---\n\n"
+    )
+
+  }
+
+}
+```
+
+# Final Ranking
+
+<div class="final-ranking-intro">
+
+After looking at each fastball individually, the full ranking puts the differences in Run Value per 100 into perspective.
+
+What I like most about this group is how little the pitches actually have in common. Some dominate through pure velocity. Others play above their velocity because of movement. Others become elite because the rest of the arsenal makes the fastball much harder to anticipate.
+
+</div>
+
+```{r fig.width=9, fig.height=6}
+
+top10_plot <- top10_fastballs %>%
+  mutate(
+    label = paste0(
+      "#",
+      rank,
+      "  ",
+      player
+    ),
+    label = factor(
+      label,
+      levels = rev(label)
+    ),
+    rank_group = case_when(
+      rank == 1 ~ "1",
+      rank == 2 ~ "2",
+      rank == 3 ~ "3",
+      TRUE ~ "Other"
+    )
+  )
+
+ggplot(
+  top10_plot,
+  aes(
+    x = label,
+    y = run_value_per_100,
+    fill = rank_group
+  )
+) +
+  geom_col(
+    width = 0.72
+  ) +
+  geom_text(
+    aes(
+      label = sprintf(
+        "%.1f",
+        run_value_per_100
+      )
+    ),
+    hjust = -0.2,
+    size = 3.6,
+    fontface = "bold"
+  ) +
+  coord_flip(
+    clip = "off"
+  ) +
+  scale_fill_manual(
+    values = c(
+      "1" = "#C9A227",
+      "2" = "#909090",
+      "3" = "#B87333",
+      "Other" = "#C94C2E"
+    )
+  ) +
+  scale_y_continuous(
+    expand = expansion(
+      mult = c(0, 0.15)
+    )
+  ) +
+  labs(
+    title = "Top 10 Four-Seam Fastballs",
+    subtitle = "Ranked by Run Value per 100 pitches",
+    x = NULL,
+    y = "Run Value / 100"
+  ) +
+  guides(
+    fill = "none"
+  ) +
+  fastball_theme()
+```
+
+# Final Takeaway
+
+<div class="ranking-explanation">
+
+<strong>There is no single blueprint for an elite fastball.</strong>
+
+deGrom shows what happens when historic starter velocity is paired with elite command and a devastating slider. Hendriks combines velocity with almost absurd strike throwing. Feyereisen shows that extreme ride can allow ordinary velocity to play much harder. Lynn shows how multiple versions of the fastball can work together. Peralta and Richards show how strongly the rest of an arsenal can influence how a fastball plays.
+
+That is probably the biggest thing I take away from the entire list. The best fastball is not necessarily the hardest fastball or the pitch with the most IVB or the most unusual horizontal movement.
+
+<strong>The best fastballs find a way to make multiple characteristics work together.</strong>
+
+</div>

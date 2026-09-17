@@ -1,0 +1,106 @@
+.profile-hero {
+  border-radius: 12px;
+  padding: 24px 26px;
+  color: white;
+  margin: 20px 0 30px 0;
+}
+
+.velocity-hero {
+  background: #D55E00;
+}
+
+.ride-hero {
+  background: #0072B2;
+}
+
+.run-hero {
+  background: #009E73;
+}
+
+.cut-hero {
+  background: #CC79A7;
+}
+
+.hero-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.hero-subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.section-intro {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0 32px 0;
+}
+
+.info-card {
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 16px 18px;
+  background: #fafafa;
+}
+
+.info-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #555555;
+  margin-bottom: 5px;
+}
+
+.info-value {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.info-description {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #555555;
+  margin-top: 5px;
+}
+
+.question-box {
+  background: #f4f4f4;
+  border-left: 5px solid #555555;
+  padding: 17px 20px;
+  margin: 22px 0 28px 0;
+  line-height: 1.6;
+}
+
+.takeaway-box {
+  background: #fafafa;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 20px 0 30px 0;
+}
+
+.takeaway-title {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.takeaway-text {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #444444;
+}
+
+@media (max-width: 750px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

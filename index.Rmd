@@ -1,18 +1,639 @@
 ---
-title: "My Website"
+title: "Fastball Analysis"
 description: |
-  Welcome to the website. I hope you enjoy it!
-site: distill::distill_website
+  Understanding how velocity, movement, and pitch shape influence four-seam fastball effectiveness.
+author:
+  - name: Mikey Myro
+date: "`r Sys.Date()`"
+output: distill::distill_article
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  out.width = "100%"
+)
 
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
-
+source("fastball_setup.R")
 ```
 
+<style>
+
+.intro-text {
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 900px;
+  margin-bottom: 30px;
+}
+
+.section-intro {
+  font-size: 16px;
+  color: #555555;
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+.story-box {
+  background: #f7f7f7;
+  border-left: 5px solid #C94C2E;
+  border-radius: 8px;
+  padding: 24px 26px;
+  margin: 22px 0 38px 0;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.scope-box {
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin: 24px 0 35px 0;
+  background: #fafafa;
+  line-height: 1.65;
+}
+
+.scope-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 22px 0 35px 0;
+}
+
+.metric-card {
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: #fafafa;
+}
+
+.metric-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.metric-description {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #444444;
+}
+
+.metric-takeaway {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #666666;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin: 25px 0 40px 0;
+}
+
+.profile-card {
+  border-radius: 10px;
+  padding: 20px 22px;
+  color: white;
+}
+
+.profile-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.profile-metric {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+.profile-description {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.velocity-card {
+  background: #D55E00;
+}
+
+.ride-card {
+  background: #0072B2;
+}
+
+.run-card {
+  background: #009E73;
+}
+
+.cut-card {
+  background: #CC79A7;
+}
+
+.landscape-key {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 18px 0 30px 0;
+}
+
+.landscape-item {
+  background: #f7f7f7;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.landscape-direction {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.landscape-description {
+  font-size: 13px;
+  color: #555555;
+}
+
+.effectiveness-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 22px 0 35px 0;
+}
+
+.effect-card {
+  border-top: 4px solid #C94C2E;
+  border-radius: 8px;
+  padding: 16px 18px;
+  background: #fafafa;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.effect-name {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.effect-description {
+  font-size: 13px;
+  color: #444444;
+  line-height: 1.5;
+}
+
+.direction-good {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #555555;
+}
+
+.method-box {
+  background: #f3f3f3;
+  border-left: 5px solid #444444;
+  padding: 20px 22px;
+  margin: 25px 0 35px 0;
+  line-height: 1.7;
+}
+
+.ranking-box {
+  background: #f8f8f8;
+  border-top: 4px solid #C94C2E;
+  border-radius: 9px;
+  padding: 22px 24px;
+  margin: 25px 0 35px 0;
+  line-height: 1.7;
+}
+
+@media (max-width: 750px) {
+
+  .metric-grid,
+  .profile-grid,
+  .effectiveness-grid,
+  .landscape-key {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+</style>
+
+# Fastball Analysis
+
+<div class="story-box">
+
+I walked on to a <strong>Division I baseball program throwing 82 mph</strong>. It was not me taking a gamble on myself. I knew I was a good enough pitcher to compete at that level despite not throwing hard because I had already been successful against high-level hitters.
+
+I had a <strong>plus-plus changeup</strong>, but my fastball also consistently generated swings and misses. I knew the changeup helped the fastball play, but throughout my career I continued to hear the same thing:
+
+<strong>my fastball “played up” compared with its velocity.</strong>
+
+<br><br>
+
+I made the team my freshman year, and a few years later a coach told me that part of the reason was the potential they saw in my <strong>analytics and pitch profile</strong>.
+
+My four years of college baseball sent me down a rabbit hole of obsessing over baseball analytics and understanding what actually makes a pitch good. I spent four years watching guys throw 92 mph and get lit up while other guys sat 85 mph and blew hitters' doors off.
+
+That led me to study the characteristics behind different fastball shapes — <strong>running and sinking fastballs, cutting fastballs, riding fastballs, and flatter fastball profiles</strong> — and to understand why the radar gun only tells part of the story.
+
+<br><br>
+
+This analysis originally started as a school project because I wanted to understand what makes a fastball effective. I did not have enough time then to take the analysis as far as I wanted.
+
+I came back to it to look more deeply at which physical properties of a <strong>four-seam fastball</strong> are associated with the best results.
+
+</div>
+
+# Four-Seam Fastball Data
+
+<div class="section-intro">
+
+The analysis uses MLB pitches classified by Baseball Savant as <strong>four-seam fastballs (FF)</strong> during the 2021 season.
+
+Pitchers who threw at least <strong>500 four-seam fastballs</strong> are included in the primary movement comparisons.
+
+</div>
+
+<div class="scope-box">
+
+<div class="scope-title">Pitch Classification Matters</div>
+
+The <strong>Run</strong> and <strong>Cut</strong> groups only represent pitches that Baseball Savant classified as four-seam fastballs.
+
+That distinction is important.
+
+Fastballs with significant arm-side run are often classified as <strong>sinkers</strong>, while fastballs with significant glove-side movement are often classified as <strong>cutters</strong>. Because those pitches fall under different classifications, they are not included here.
+
+The Run and Cut sections therefore do not represent every running or cutting fastball in baseball. They represent the most extreme running and cutting movement profiles <strong>within the four-seam fastball classification</strong>.
+
+</div>
+
+# Understanding Fastball Movement
+
+<div class="section-intro">
+
+Fastball shape is defined by more than velocity. Vertical and horizontal movement describe how the ball travels to the plate, while relative movement shows how unusual that shape is compared with other fastballs.
+
+</div>
+
+<div class="metric-grid">
+
+<div class="metric-card">
+<div class="metric-name">Velocity</div>
+<div class="metric-description">
+
+Average pitch speed in miles per hour. More velocity gives a hitter less time to recognize the pitch, make a decision, and get the barrel to the ball.
+
+</div>
+<div class="metric-takeaway">
+Higher = Faster
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">Induced Vertical Break (IVB)</div>
+<div class="metric-description">
+
+Measures the vertical movement created by aerodynamic forces on the baseball. A high-IVB fastball resists vertical drop more effectively as it travels toward the plate.
+
+</div>
+<div class="metric-takeaway">
+Higher IVB = More Ride
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">IVB vs Average</div>
+<div class="metric-description">
+
+Measures how much more or less IVB a pitcher generates compared with the average four-seam fastball from the same throwing side.
+
+</div>
+<div class="metric-takeaway">
++3.0 = 3 inches more IVB than average
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">Horizontal Break (HB)</div>
+<div class="metric-description">
+
+Measures the actual side-to-side movement of the pitch in inches. Horizontal break helps describe whether a fastball has more run, stays relatively straight, or takes on a cutting shape.
+
+</div>
+<div class="metric-takeaway">
+Describes horizontal pitch shape
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">HB vs Comparable</div>
+<div class="metric-description">
+
+Measures how much a fastball's horizontal movement differs from comparable four-seam fastballs.
+
+</div>
+<div class="metric-takeaway">
+Positive = More Run · Negative = More Cut
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">Relative Movement</div>
+<div class="metric-description">
+
+Raw movement shows what a pitch does. Relative movement shows how much that pitch separates itself from the movement hitters are more accustomed to seeing.
+
+</div>
+<div class="metric-takeaway">
+0 = Comparable to the baseline
+</div>
+</div>
+
+</div>
+
+# Four Fastball Shapes
+
+<div class="section-intro">
+
+Four-seam fastballs can separate themselves in very different ways. The four profiles below isolate the physical characteristics used throughout the analysis.
+
+</div>
+
+<div class="profile-grid">
+
+<div class="profile-card velocity-card">
+<div class="profile-title">Velocity</div>
+<div class="profile-metric">Average Velocity</div>
+<div class="profile-description">
+
+The hardest four-seam fastballs among the qualified pitchers.
+
+</div>
+</div>
+
+<div class="profile-card ride-card">
+<div class="profile-title">Ride</div>
+<div class="profile-metric">IVB vs Average</div>
+<div class="profile-description">
+
+Fastballs that resist vertical drop substantially more than average and produce the most extreme riding shapes.
+
+</div>
+</div>
+
+<div class="profile-card run-card">
+<div class="profile-title">Run</div>
+<div class="profile-metric">High HB vs Comparable</div>
+<div class="profile-description">
+
+Four-seam fastballs with the most horizontal arm-side movement relative to comparable pitches.
+
+</div>
+</div>
+
+<div class="profile-card cut-card">
+<div class="profile-title">Cut</div>
+<div class="profile-metric">Low HB vs Comparable</div>
+<div class="profile-description">
+
+Four-seam fastballs with less arm-side movement than comparable pitches, creating a more cutting horizontal profile.
+
+</div>
+</div>
+
+</div>
+
+# The Fastball Movement Landscape
+
+<div class="section-intro">
+
+The movement landscape makes it easier to identify <strong>outliers</strong>.
+
+Fastballs near the center have movement profiles closer to the average or comparable pitch. The farther a pitch moves away from the center, the more its shape separates itself from what hitters typically see.
+
+</div>
+
+<div class="landscape-key">
+
+<div class="landscape-item">
+<div class="landscape-direction">↑ More Ride</div>
+<div class="landscape-description">
+Higher IVB relative to average
+</div>
+</div>
+
+<div class="landscape-item">
+<div class="landscape-direction">← More Cut</div>
+<div class="landscape-description">
+Less arm-side movement than comparable fastballs
+</div>
+</div>
+
+<div class="landscape-item">
+<div class="landscape-direction">More Run →</div>
+<div class="landscape-description">
+More arm-side movement than comparable fastballs
+</div>
+</div>
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+plot_league_movement()
+```
+
+<div class="section-intro">
+
+Moving <strong>higher</strong> on the graph represents more induced vertical break and therefore more ride.
+
+Moving <strong>right</strong> represents more horizontal run, while moving <strong>left</strong> represents a more cutting four-seam shape.
+
+The pitches farthest from the main cluster are especially interesting. Those outliers create movement profiles that differ more significantly from the fastballs hitters regularly see.
+
+A fastball can also be an outlier in more than one direction. A pitch can combine significant ride with large amounts of run, or pair above-average ride with a cutting horizontal profile.
+
+</div>
+
+# Measuring Fastball Effectiveness
+
+<div class="method-box">
+
+I chose not to rely heavily on traditional results such as <strong>ERA, home runs allowed, or batting average against</strong> when evaluating individual fastballs.
+
+Those statistics tell us what happened, but they can also be influenced by factors outside the quality of the pitch itself — defense, ballpark, sequencing, batted-ball placement, and variance after contact.
+
+<br><br>
+
+I am usually not a fan of relying too heavily on expected statistics. For individual pitch evaluation, however, I think they are especially useful because they remove some of those external factors and focus more directly on the quality of the interaction between the hitter and the pitch.
+
+Metrics such as <strong>xwOBA</strong> and <strong>xSLG</strong> provide context for the quality of contact a fastball allowed rather than relying only on the final result.
+
+<strong>Whiff Rate</strong> and <strong>Hard-Hit Rate</strong> are also better suited for evaluating individual pitches because they are less dependent on luck after the ball leaves the bat. Whiff Rate measures a pitch's ability to completely miss the bat, while Hard-Hit Rate measures how consistently hitters were able to square the pitch up when they made contact.
+
+</div>
+
+<div class="effectiveness-grid">
+
+<div class="effect-card">
+<div class="effect-name">Run Value / 100</div>
+<div class="effect-description">
+
+Measures the value produced by a pitch and standardizes it over 100 pitches, allowing fastballs with different workloads to be compared on the same scale.
+
+</div>
+<div class="direction-good">
+Higher = Better
+</div>
+</div>
+
+<div class="effect-card">
+<div class="effect-name">xwOBA</div>
+<div class="effect-description">
+
+Expected weighted offensive production allowed. Different offensive outcomes are weighted by their value rather than treating every hit the same.
+
+</div>
+<div class="direction-good">
+Lower = Better
+</div>
+</div>
+
+<div class="effect-card">
+<div class="effect-name">Whiff %</div>
+<div class="effect-description">
+
+The percentage of swings against the fastball that result in no contact.
+
+</div>
+<div class="direction-good">
+Higher = Better
+</div>
+</div>
+
+<div class="effect-card">
+<div class="effect-name">xSLG</div>
+<div class="effect-description">
+
+Expected slugging percentage allowed. It provides a measure of the expected damage produced when hitters put the pitch in play.
+
+</div>
+<div class="direction-good">
+Lower = Better
+</div>
+</div>
+
+<div class="effect-card">
+<div class="effect-name">Hard-Hit %</div>
+<div class="effect-description">
+
+The percentage of batted balls against the pitch hit at an exit velocity of at least 95 mph.
+
+</div>
+<div class="direction-good">
+Lower = Better
+</div>
+</div>
+
+<div class="effect-card">
+<div class="effect-name">Usage %</div>
+<div class="effect-description">
+
+The percentage of a pitcher's total pitches that were four-seam fastballs. Usage provides context for how heavily a pitcher relied on the pitch.
+
+</div>
+<div class="direction-good">
+Context
+</div>
+</div>
+
+</div>
+
+# Additional Results
+
+<div class="metric-grid">
+
+<div class="metric-card">
+<div class="metric-name">wOBA</div>
+<div class="metric-description">
+
+Actual weighted offensive production allowed. Comparing wOBA with xwOBA shows how actual results compared with expected results.
+
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">BA / xBA</div>
+<div class="metric-description">
+
+Actual batting average allowed compared with the expected batting average based on the quality of the hitter's results.
+
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">SLG / xSLG</div>
+<div class="metric-description">
+
+Actual slugging percentage allowed compared with expected slugging percentage.
+
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">K %</div>
+<div class="metric-description">
+
+Strikeout rate associated with plate appearances involving the fastball.
+
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">Put-Away %</div>
+<div class="metric-description">
+
+How often the fastball records a strikeout when thrown with two strikes.
+
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-name">Total Run Value</div>
+<div class="metric-description">
+
+The total value accumulated by the fastball over the season. Unlike RV/100, workload has a major influence on this number.
+
+</div>
+</div>
+
+</div>
+
+# Run Value per 100
+
+<div class="ranking-box">
+
+I ranked the <strong>10 most valuable four-seam fastballs of 2021</strong> using Run Value per 100 pitches.
+
+Total Run Value naturally favors pitchers with larger workloads because they have more opportunities to accumulate value. Using Run Value per 100 removes that advantage and focuses on the value created by the fastball each time it was thrown.
+
+That can work against a pitcher who threw more innings and accumulated significantly more total value, but that is intentional. The ranking is focused on <strong>the value of the fastball itself on a per-pitch basis</strong>, rather than the total value accumulated over an entire season.
+
+The result is a ranking of the pitches that produced the most value relative to how often they were actually thrown.
+
+</div>

@@ -1,5 +1,10 @@
-archive 2/
-docs/archive 2/
-*.csv
+.DS_Store
+.Rhistory
 .RData
+.RDataTmp
 .Rproj.user/
+_site/
+savant.rds
+
+/archive 2/
+/docs/archive 2/

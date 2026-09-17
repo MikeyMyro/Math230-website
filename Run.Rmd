@@ -1,0 +1,413 @@
+---
+title: "Run Fastballs"
+description: |
+  How extreme horizontal movement changes the shape and effectiveness of a four-seam fastball.
+author:
+  - name: Mikey Myro
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    css: fastball_style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  out.width = "100%"
+)
+
+source("fastball_setup.R")
+```
+
+<style>
+
+.analysis-box {
+  background: #f7f7f7;
+  border-left: 5px solid #009E73;
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin: 22px 0 30px 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 22px 0 32px 0;
+}
+
+.player-card {
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: #fafafa;
+}
+
+.player-name {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.player-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #009E73;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.player-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444444;
+}
+
+.comparison-intro {
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.6;
+  margin: 15px 0 20px 0;
+}
+
+.disclaimer-box {
+  background: #f7f7f7;
+  border: 1px solid #dedede;
+  border-top: 5px solid #009E73;
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin: 24px 0 32px 0;
+  line-height: 1.7;
+}
+
+@media (max-width: 750px) {
+  .player-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+
+<div class="profile-hero run-hero">
+
+<div class="hero-title">Run</div>
+
+<div class="hero-subtitle">
+
+Four-seam fastballs with more horizontal arm-side movement than comparable pitches. These fastballs create a very different shape from the traditional high-ride four-seamer.
+
+</div>
+
+</div>
+
+# Run
+
+The pitch-classification disclaimer matters more on this page than anywhere else.
+
+These are <strong>running four-seam fastballs, not sinkers</strong>.
+
+A lot of the most extreme arm-side fastballs in baseball are classified by Baseball Savant as sinkers, so they never enter this group. This is not a full evaluation of whether run itself is good or bad.
+
+It is specifically a look at what happens when pitches that are still classified as four-seam fastballs have much more horizontal movement than comparable four-seamers.
+
+<div class="disclaimer-box">
+
+<strong>Pitch Classification Matters</strong>
+
+<br><br>
+
+Many pitchers who intentionally chase extreme arm-side movement throw pitches that are classified as sinkers rather than four-seam fastballs.
+
+That means this group should not be viewed as the best running fastballs in baseball. It represents the four-seamers that sit on the extreme running side of the four-seam movement spectrum.
+
+</div>
+
+<div class="info-grid">
+
+<div class="info-card">
+<div class="info-title">Ranking</div>
+<div class="info-value">HB vs Comparable</div>
+<div class="info-description">
+
+The 15 four-seamers with the most horizontal arm-side movement relative to comparable pitches.
+
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Physical Trait</div>
+<div class="info-value">Arm-Side Movement</div>
+<div class="info-description">
+
+The farther the pitch moves horizontally toward the arm side relative to similar fastballs, the more run it has.
+
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Classification</div>
+<div class="info-value">Four-Seam Only</div>
+<div class="info-description">
+
+Extreme running fastballs are often classified as sinkers, so this group only captures one part of the overall run spectrum.
+
+</div>
+</div>
+
+</div>
+
+## Most Horizontal Run
+
+<div class="section-intro">
+
+These were the 15 four-seam fastballs with the most horizontal movement relative to comparable pitches.
+
+</div>
+
+```{r fig.width=9, fig.height=6}
+run_page$leaderboard
+```
+
+# Movement Profiles
+
+Horizontal run can be influenced by several parts of a pitcher’s delivery and pitch profile, especially spin direction and release characteristics.
+
+Arm slot is one of the easiest examples to see. A lower arm slot often comes with a more horizontal spin direction, which can contribute to additional arm-side movement.
+
+It is not as simple as saying lower slot automatically equals more run, but the relationship between arm slot, spin axis, and horizontal movement is important.
+
+Jake Diekman is a good example. His extremely low arm slot gives hitters a completely different look, and his four-seam fastball produced far more horizontal movement than comparable pitches.
+
+The vertical component matters too.
+
+Lower IVB combined with a lot of arm-side movement begins to look more like the shape normally associated with a sinker. A four-seam sitting around the mid-teens in IVB while also producing significant run can sometimes fall into what pitchers and coaches describe as a flatter fastball profile rather than a true riding fastball.
+
+That is part of what makes this group interesting. A lot of these pitches sit near the boundary between a traditional four-seam shape and pitches that could easily be classified differently if the movement became slightly more extreme.
+
+## Actual Movement
+
+<div class="section-intro">
+
+The raw movement chart shows how much variation still exists inside a group defined by run. Some pitches combine arm-side movement with lower IVB, while others still maintain more vertical ride.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+run_page$movement
+```
+
+## Movement Relative to Comparable Fastballs
+
+<div class="section-intro">
+
+Moving farther to the right represents more horizontal run relative to comparable four-seamers.
+
+The vertical axis helps show whether that run is paired with ride, average IVB, or a flatter and more sinker-like vertical shape.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+run_page$profile_space
+```
+
+<div class="analysis-box">
+
+<strong>Run by itself does not completely describe the pitch.</strong>
+
+A high-run fastball with strong IVB can still look very different from a high-run fastball with lower IVB. The vertical component changes whether the pitch behaves more like a riding four-seamer, a flatter fastball, or begins approaching the movement profile normally associated with a sinker.
+
+That is why the full movement profile matters more than simply saying a pitch has a lot of horizontal break.
+
+</div>
+
+<div class="player-grid">
+
+<div class="player-card">
+
+<div class="player-label">Extreme Run</div>
+
+<div class="player-name">Jake Diekman</div>
+
+<div class="player-text">
+
+Diekman is one of the clearest examples of how delivery characteristics can contribute to an unusual fastball shape.
+
+His low arm slot creates a very different release look, and his four-seam produced substantially more horizontal movement than comparable pitches.
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-label">Run and Vertical Shape</div>
+
+<div class="player-name">The Sinker Boundary</div>
+
+<div class="player-text">
+
+As horizontal run increases and IVB decreases, the pitch begins to approach the movement profile normally associated with a sinker.
+
+That makes the Run group especially sensitive to how Baseball Savant classifies each pitch.
+
+</div>
+
+</div>
+
+</div>
+
+# Run and Expected Results
+
+<div class="section-intro">
+
+Comparing horizontal movement relative to comparable fastballs with expected wOBA shows whether additional run consistently translated into better results.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+run_page$relationship
+```
+
+# Effectiveness
+
+The results are not especially strong for the high-run four-seam group.
+
+Only five of the 15 fastballs finished with a positive Run Value per 100, and Richard Rodríguez led the group at only around 1.0 RV/100.
+
+Compared with the other fastball shapes, this was not the most effective group.
+
+That does not mean arm-side run itself is bad. Many pitchers who intentionally chase large amounts of arm-side movement are throwing sinkers, and those pitches are completely absent from this sample.
+
+What it does suggest is that extreme run on a pitch that was still being thrown and classified as a four-seamer was not especially effective within this 2021 group.
+
+## Expected wOBA
+
+Lower xwOBA shows which high-run fastballs were best at limiting expected offensive production.
+
+```{r fig.width=9, fig.height=6}
+run_page$xwoba
+```
+
+## Whiff Rate
+
+Whiff rate shows whether the additional horizontal movement actually translated into more swings and misses.
+
+```{r fig.width=9, fig.height=6}
+run_page$whiff
+```
+
+## Run Value per 100
+
+This is where the weakness of the group becomes especially clear. Only a small number of these high-run four-seamers produced positive value on a per-pitch basis.
+
+```{r fig.width=9, fig.height=6}
+run_page$run_value
+```
+
+## Hard-Hit Rate
+
+Hard-Hit Rate provides another way to see whether the movement helped prevent hitters from squaring the pitch up when they did make contact.
+
+```{r fig.width=9, fig.height=6}
+run_page$hard_hit
+```
+
+# Individual Results
+
+<div class="player-grid">
+
+<div class="player-card">
+
+<div class="player-label">Lowest Results in the Group</div>
+
+<div class="player-name">Jesús Luzardo</div>
+
+<div class="player-text">
+
+Luzardo had one of the worst four-seam fastballs in the group that season.
+
+He has developed into a much better pitcher since then, but 2021 was a terrible season for him and he was still far from the pitcher he would eventually become.
+
+His appearance near the bottom of this group is a good reminder that a pitcher should be evaluated based on the pitch and season in front of you rather than his reputation or what he becomes later.
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-label">Established Pitcher, Down Season</div>
+
+<div class="player-name">Aaron Nola</div>
+
+<div class="player-text">
+
+Nola has been one of the better starting pitchers of the last decade, but 2021 was a poor season by his standards.
+
+His four-seam was slightly positive by RV/100, but it was nowhere near a dominant pitch.
+
+A recognizable name does not automatically mean every pitch in every season was effective.
+
+</div>
+
+</div>
+
+</div>
+
+<div class="analysis-box">
+
+Overall, high horizontal run was the least convincing four-seam shape in this data.
+
+The group did not consistently miss bats at an elite level, did not dominate expected results, and produced relatively weak Run Value per 100 numbers.
+
+I would not use that as evidence that running fastballs are ineffective.
+
+If anything, it may suggest that when a pitcher is trying to maximize arm-side movement, the better version of that pitch often becomes a <strong>sinker rather than a four-seamer</strong>.
+
+The four-seam classification itself is an important part of the result.
+
+</div>
+
+# Run Group vs Qualified Average
+
+<div class="comparison-intro">
+
+The group average makes it easier to compare the 15 highest-run four-seam fastballs with the qualified four-seam population as a whole.
+
+</div>
+
+```{r}
+make_effectiveness_comparison(
+  run_fastballs,
+  "Top 15 Run Fastballs"
+)
+```
+
+# Complete Profiles
+
+<div class="takeaway-box">
+
+<div class="takeaway-title">Run in Context</div>
+
+<div class="takeaway-text">
+
+Horizontal movement can create a unique fastball shape, but the Run group shows that unusual movement alone does not guarantee effectiveness.
+
+The most important context is that these are still four-seam fastballs. Many of the pitches that maximize arm-side movement are classified as sinkers and therefore fall outside this group entirely.
+
+</div>
+
+</div>
+
+```{r}
+make_stats_table(
+  run_fastballs,
+  "Top 15 Four-Seam Fastballs by Horizontal Break vs Comparable"
+)
+```

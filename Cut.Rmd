@@ -1,0 +1,441 @@
+---
+title: "Cut Fastballs"
+description: |
+  Four-seam fastballs on the cutting end of the movement spectrum and what makes the best versions effective.
+author:
+  - name: Mikey Myro
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    css: fastball_style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  out.width = "100%"
+)
+
+source("fastball_setup.R")
+```
+
+<style>
+
+.analysis-box {
+  background: #f7f7f7;
+  border-left: 5px solid #CC79A7;
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin: 22px 0 30px 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 22px 0 32px 0;
+}
+
+.player-card {
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: #fafafa;
+}
+
+.player-name {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.player-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #CC79A7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.player-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444444;
+}
+
+.comparison-intro {
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.6;
+  margin: 15px 0 20px 0;
+}
+
+.cut-ride-box {
+  background: #f7f7f7;
+  border: 1px solid #dedede;
+  border-top: 5px solid #CC79A7;
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin: 24px 0 32px 0;
+  line-height: 1.7;
+}
+
+@media (max-width: 750px) {
+  .player-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+
+<div class="profile-hero cut-hero">
+
+<div class="hero-title">Cut</div>
+
+<div class="hero-subtitle">
+
+Four-seam fastballs that move less toward the arm side than comparable pitches. The most extreme versions create a cutting shape that can look completely different from a traditional four-seamer.
+
+</div>
+
+</div>
+
+# Cut
+
+Personally, I think the cutter has had one of the biggest impacts on modern pitching.
+
+The sweeper has gotten similar attention more recently, and the splitter has made a major comeback, but cutting action has changed the way pitchers think about both fastballs and breaking pitches.
+
+These are not true cutters. They are pitches Baseball Savant classified as <strong>four-seam fastballs</strong>. Still, the same general movement idea is relevant.
+
+A cutting four-seam moves less toward the arm side than a typical fastball and, in more extreme cases, begins moving toward the glove side.
+
+That comes from a different spin orientation than a traditional four-seamer. Getting farther around the side of the baseball can tilt the spin axis, while additional gyro spin can reduce the amount of horizontal movement created by transverse spin.
+
+The result is a fastball that does not follow the horizontal path hitters normally expect from a four-seamer.
+
+<div class="info-grid">
+
+<div class="info-card">
+<div class="info-title">Ranking</div>
+<div class="info-value">HB vs Comparable</div>
+<div class="info-description">
+
+The 15 four-seamers with the least arm-side movement relative to comparable pitches.
+
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Physical Trait</div>
+<div class="info-value">Glove-Side Shape</div>
+<div class="info-description">
+
+Less arm-side movement creates a straighter or cutting fastball compared with the normal four-seam movement profile.
+
+</div>
+</div>
+
+<div class="info-card">
+<div class="info-title">Important Context</div>
+<div class="info-value">Not True Cutters</div>
+<div class="info-description">
+
+Every pitch here was still classified as a four-seam fastball. True cutters are not included.
+
+</div>
+</div>
+
+</div>
+
+## Most Cutting Four-Seam Fastballs
+
+<div class="section-intro">
+
+These are the 15 four-seam fastballs with the lowest horizontal movement relative to comparable pitches.
+
+</div>
+
+```{r fig.width=9, fig.height=6}
+cut_page$leaderboard
+```
+
+# Movement Profiles
+
+This is probably the most interesting movement group because the pitches can have completely different vertical shapes while still being classified as cutting four-seamers.
+
+Kershaw sits on one extreme. He combines a lot of ride with almost no raw horizontal movement, giving him the cut-ride shape.
+
+Garrett Richards is an outlier on the other side. His fastball cuts heavily relative to comparable pitches but has much less IVB.
+
+Both pitches fall into the Cut group, but they are completely different fastballs.
+
+That difference matters.
+
+Simply saying a fastball “cuts” does not tell you enough. The vertical movement changes the entire shape of the pitch.
+
+A cutting fastball with lower IVB can work down and across the zone. A cutting fastball with high IVB can stay above barrels while also moving away from the horizontal path hitters expect.
+
+That second shape is the one I have always thought had the highest ceiling.
+
+## Actual Movement
+
+<div class="section-intro">
+
+The raw movement chart shows why the Cut group is not one uniform pitch type. Horizontal cut may be the trait that gets a pitcher onto the list, but IVB determines whether that pitch has a flatter shape or a true cut-ride profile.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+cut_page$movement
+```
+
+## Movement Relative to Comparable Fastballs
+
+<div class="section-intro">
+
+Moving farther to the left represents more cut relative to comparable four-seamers.
+
+The vertical axis is what separates the different versions of the pitch. A pitcher high and left combines cut with ride, while a pitcher low and left creates a much flatter vertical profile.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+cut_page$profile_space
+```
+
+<div class="analysis-box">
+
+<strong>Cut is only half of the movement profile.</strong>
+
+Kershaw and Richards are a perfect example. Both have four-seamers that cut heavily relative to comparable pitches, but the vertical movement is completely different.
+
+That is why I think cut-ride deserves to be treated as its own shape. The horizontal movement makes the fastball unusual, but keeping elite vertical ride at the same time creates a completely different problem for the hitter.
+
+</div>
+
+# Cut-Ride
+
+<div class="cut-ride-box">
+
+Of all the fastball shapes, <strong>cut-ride is still the one I personally find the most interesting</strong>.
+
+A traditional four-seam fastball tends to move toward the arm side while resisting vertical drop. A cut-ride fastball keeps the vertical component but removes much of that expected arm-side movement.
+
+That means the hitter has to deal with an unusual trajectory in both directions.
+
+The pitch stays above the expected vertical path while also refusing to follow the horizontal path of a normal four-seamer.
+
+Clayton Kershaw is one of the clearest examples in this data. His fastball combines strong IVB with almost no raw horizontal break.
+
+Tyler Glasnow takes the same general idea and adds another major advantage: <strong>elite velocity</strong>.
+
+That combination — velocity, ride, and cut — is about as complete of a physical fastball profile as I can picture.
+
+</div>
+
+<div class="player-grid">
+
+<div class="player-card">
+
+<div class="player-label">Cut-Ride Outlier</div>
+
+<div class="player-name">Clayton Kershaw</div>
+
+<div class="player-text">
+
+Kershaw combines high IVB with almost no raw horizontal break.
+
+Instead of following the traditional arm-side path of a four-seamer, the pitch stays vertically while cutting relative to comparable fastballs.
+
+That unusual shape fits with the type of pitch profiles that helped make him one of the best pitchers of his generation.
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-label">Cut Without Ride</div>
+
+<div class="player-name">Garrett Richards</div>
+
+<div class="player-text">
+
+Richards is an outlier in the opposite direction.
+
+His fastball has one of the strongest cutting profiles in the group, but it does not pair that cut with the same level of vertical ride.
+
+The results were also much worse, showing that extreme horizontal movement by itself does not guarantee an effective pitch.
+
+</div>
+
+</div>
+
+</div>
+
+# Cut and Expected Results
+
+<div class="section-intro">
+
+Comparing cut relative to comparable fastballs with expected wOBA helps show whether moving farther toward the cutting side consistently produced better results.
+
+</div>
+
+```{r fig.width=9, fig.height=7}
+cut_page$relationship
+```
+
+# Effectiveness
+
+There are a lot of recognizable pitchers on this list: Clayton Kershaw, Zack Greinke, Max Fried, Sonny Gray, Walker Buehler, and Tyler Glasnow.
+
+That does not prove that cut automatically makes a fastball effective, but it is interesting to see that so many successful pitchers appear in the group.
+
+Garrett Richards is important for the opposite reason. His fastball had one of the most extreme cutting profiles on the page, but the results were poor.
+
+Extreme movement by itself is not enough.
+
+Tyler Glasnow is the pitch that stands out the most to me.
+
+His fastball combined elite velocity with above-average IVB and significant cut relative to comparable four-seamers. That means he had all three characteristics working together:
+
+<strong>velocity, ride, and cut.</strong>
+
+Then add the fact that he is 6-foot-8, lanky, and throws from a high, over-the-top slot.
+
+The hitter is dealing with elite velocity, an unusual vertical trajectory, an unusual horizontal shape, and a release point that is already difficult to match.
+
+That is much closer to what I picture when I think about an elite modern fastball. It is not one extreme number. It is several characteristics working together.
+
+## Expected wOBA
+
+Lower xwOBA shows which cutting fastballs were best at limiting expected offensive production.
+
+```{r fig.width=9, fig.height=6}
+cut_page$xwoba
+```
+
+## Whiff Rate
+
+Cut does not have to create a swing and miss to be useful, but whiff rate still shows which pitchers were able to turn the movement into missed bats.
+
+```{r fig.width=9, fig.height=6}
+cut_page$whiff
+```
+
+## Run Value per 100
+
+Run Value per 100 shows which pitchers actually converted the cutting shape into overall pitch value.
+
+```{r fig.width=9, fig.height=6}
+cut_page$run_value
+```
+
+## Hard-Hit Rate
+
+This might be especially important for the Cut group.
+
+A hitter does not need to completely miss for the movement to work. If the pitch moves just enough away from the expected path to move contact off the barrel, it can turn potentially damaging contact into much weaker contact.
+
+```{r fig.width=9, fig.height=6}
+cut_page$hard_hit
+```
+
+<div class="player-grid">
+
+<div class="player-card">
+
+<div class="player-label">Complete Fastball Profile</div>
+
+<div class="player-name">Tyler Glasnow</div>
+
+<div class="player-text">
+
+Glasnow stands out because there is no single characteristic carrying the fastball.
+
+He has elite velocity, above-average ride, and significant cut. His height and high release add another layer to an already unusual pitch.
+
+This is the type of fastball where multiple traits stack together rather than one number doing all the work.
+
+</div>
+
+</div>
+
+<div class="player-card">
+
+<div class="player-label">Movement Alone Is Not Enough</div>
+
+<div class="player-name">Garrett Richards</div>
+
+<div class="player-text">
+
+Richards shows the opposite side of the group.
+
+His fastball is one of the strongest horizontal outliers, yet the results do not match how unusual the movement is.
+
+That is another reminder that being different is valuable only when the rest of the pitch allows that difference to work.
+
+</div>
+
+</div>
+
+</div>
+
+<div class="analysis-box">
+
+The Cut group reinforces why I do not think whiffs are the only way movement can create value.
+
+A hitter does not have to completely miss the baseball for a pitch to work. If the movement is different enough to move contact away from the barrel and turn hard contact into weaker contact, the pitch has still accomplished something.
+
+The best examples also show why I keep coming back to cut-ride. It attacks the hitter's expected path vertically and horizontally at the same time.
+
+When that shape is paired with elite velocity, there are very few obvious weaknesses left in the physical profile.
+
+</div>
+
+# Cut Group vs Qualified Average
+
+<div class="comparison-intro">
+
+The group average makes it easier to compare the 15 most cutting four-seam fastballs with the qualified four-seam population as a whole.
+
+</div>
+
+```{r}
+make_effectiveness_comparison(
+  cut_fastballs,
+  "Top 15 Cut Fastballs"
+)
+```
+
+# Complete Profiles
+
+<div class="takeaway-box">
+
+<div class="takeaway-title">Cut in Context</div>
+
+<div class="takeaway-text">
+
+Cutting movement can create a very effective four-seam fastball, but the results depend heavily on what comes with it.
+
+Cut paired with low IVB creates a completely different pitch from cut paired with elite ride. Add velocity on top of the cut-ride profile and the fastball begins stacking multiple physical advantages at once.
+
+That combination is what makes the best pitches in this group stand out.
+
+</div>
+
+</div>
+
+```{r}
+make_stats_table(
+  cut_fastballs,
+  "Top 15 Cutting Four-Seam Fastballs"
+)
+```
