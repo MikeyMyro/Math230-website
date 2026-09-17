@@ -1,5 +1,7 @@
-name: "Fastball Analysis"
-title: "Fastball Analysis"
+name: "Math230.website"
+title: "MLB Fastball Analysis"
+description: |
+  MLB Fastball Analysis
 output_dir: "docs"
 
 navbar:
@@ -9,14 +11,14 @@ navbar:
     - text: "Velocity"
       href: Velocity.html
     - text: "Ride"
-      href: ride.html
+      href: Ride.html
     - text: "Run"
-      href: run.html
+      href: Run.html
     - text: "Cut"
-      href: cut.html
-    - text: "Top 10 Fastballs of 2021"
+      href: Cut.html
+    - text: "Top 10"
       href: top10.html
 
-
 output:
-  distill::distill_article
+  distill::distill_article:
+    css: fastball_style.css
